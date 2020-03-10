@@ -1,0 +1,30 @@
+/// Usage: @include bp-xl { styles for media qyuery }
+
+$breakpoint-sm: rem(580);
+$breakpoint-md: rem(768);
+$breakpoint-lg: rem(992);
+$breakpoint-xl: rem(1200);
+
+@mixin bp-xl{
+    @media only screen and (min-width: $breakpoint-xl) {
+        @content;
+    }
+}
+
+@mixin bp-lg{
+    @media only screen and (min-width: $breakpoint-lg) {
+        @content;
+    }
+}
+
+@mixin bp-md {
+    @media only screen and (min-width: $breakpoint-md) {
+        @content;
+    }
+}
+
+@mixin bp-sm {
+    @media only screen and (min-width: $breakpoint-sm) {
+        @content;
+    }
+}

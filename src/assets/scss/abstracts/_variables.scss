@@ -1,0 +1,26 @@
+/*  
+    Table of Contents:
+        1. Sizing
+        2. Colors
+*/  
+
+// 1. Sizing
+$browser-context: 16; // Default
+
+// 2. Colors
+$headings-color: #fff;
+$text-color: #A4A6A8;
+$sec-color: #898C8E;
+$bgd-color: #262728;
+$border-color: #323435;
+
+
+/// Breakpoints map
+/// @prop {String} keys - Keys are identifiers mapped to a given length
+/// @prop {Map} values - Values are actual breakpoints expressed in pixels
+$breakpoints: (
+  'sm': 580px,
+  'md': 768px,
+  'lg': 992px,
+  'xl': 1200px
+) !default;

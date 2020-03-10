@@ -1,0 +1,39 @@
+.content-wrapper {
+    padding: rem(20);
+}
+.container {
+    
+    display: flex;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    flex-direction: column;
+    @include bp-sm {
+        flex-direction: row;
+    }
+}
+
+.col {
+    box-sizing: border-box;
+    width: 100%;
+    flex-basis: 100%;
+    @include bp-sm {
+
+    }
+    @include bp-md {
+        
+    }
+    @include bp-lg {
+        
+    }
+    @include bp-xl {
+        
+    }
+    &.col-4 {
+        @include bp-lg {
+            flex-basis: 31.333%;
+            width: 31.333%;
+            margin: 1%;
+            padding: rem(20) rem(30);
+        }
+    }
+}

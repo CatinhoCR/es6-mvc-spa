@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans:400,700&display=swap');
+
+$main-font: 'PT Sans', sans-serif;
+
+body {
+    @include font-size(16);
+    font-family: $main-font;
+    color: #fff;
+}
+
+h1 {
+    @include font-size(40);
+}
+
+h2 {
+    @include font-size(28);
+}
+
+p {
+    color: $text-color;
+    @include font-size(14);
+}
+
+a {
+
+}

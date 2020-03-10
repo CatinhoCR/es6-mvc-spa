@@ -1,0 +1,23 @@
+.text-center {
+    text-align: center;
+}
+
+.test-justify {
+    text-align: justify;
+}
+
+.clearfix {
+
+    *zoom: 1;
+
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+
+}

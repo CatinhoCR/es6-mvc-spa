@@ -1,0 +1,19 @@
+.btn {
+    &.main-btn {
+        position: absolute;
+        top: -13px;
+        right: -10px;
+        border-radius: 100%;
+        background-color: transparent;
+        border-color: #fff;
+        font-size: 16px;
+        height: 26px;
+        width: 26px;
+        color: #fff;
+        transition: all .2s ease-in-out;
+        &:hover{
+            background-color:#fff;
+            color: $text-color;
+        }
+    }
+}

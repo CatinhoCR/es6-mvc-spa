@@ -1,0 +1,38 @@
+.article {
+    &.list-item {
+        position: relative;
+        box-shadow: 0px 0px 0px 1px $border-color;
+        transition: box-shadow .8s, linear;
+        cursor: pointer;
+
+        span {
+            &.category {}
+
+            &.date {}
+        }
+
+        h2 {
+            text-transform: capitalize;
+        }
+
+        p {
+            &:first-letter {
+                text-transform: uppercase;
+            }
+        }
+
+        &:hover {
+            // border: 3px solid #fff;
+            box-shadow: 0px 0px 0px 3px #fff;
+
+            .main-btn {
+                background-color: #fff;
+                color: $text-color;
+            }
+
+            h2 {
+                text-decoration: underline;
+            }
+        }
+    }
+}

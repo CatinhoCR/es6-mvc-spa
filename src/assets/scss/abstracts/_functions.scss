@@ -1,0 +1,6 @@
+/// Calculate rem sizing with px fallback for older browsers.
+/// Usage: calculateRem(28)
+@function rem($pixels, $context: $browser-context) {
+    $remSize: $pixels / $context;
+    @return ($remSize) * 1rem;
+}
