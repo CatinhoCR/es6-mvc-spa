@@ -5,7 +5,6 @@ export default class HeaderComponent {
     constructor() {
         this.PostsCtrl = new DashboardCtrl();
         this.header = null || document.getElementById('header-container');
-        this.PostsCtrl = new DashboardCtrl();
     }
     async render() {
         // Lazy Load | This should be moved to a router. ???s

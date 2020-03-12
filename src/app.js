@@ -14,9 +14,9 @@ class App {
     constructor() {
         // this.routing = new Router();
 
-        this.DashboardCtrl = new DashboardCtrl();
-        this.Navbar = new HeaderComponent();
         
+        this.Navbar = new HeaderComponent();
+        this.DashboardCtrl = new DashboardCtrl();       
         
         
         
@@ -28,7 +28,7 @@ class App {
         // this.header.innerHTML = await this.Navbar.template();
         // await this.Navbar.after_render();
         await this.Navbar.render();
-        // this.DashboardCtrl.setupView();
+        await this.DashboardCtrl.setupView();
         
     }   
 }

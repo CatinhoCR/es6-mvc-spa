@@ -1,3 +1,5 @@
+
+
 import PostsModel from './DashboardModel';
 import DashboardView from './DashboardView';
 
@@ -5,22 +7,85 @@ export default class DashboardCtrl {
     constructor() {
         this.model = new PostsModel();
         this.view = new DashboardView();
+        
     }
-    setupView() {
-        this.view.render();
+    async setupView() {
+        this.container = document.getElementById('page-container');
+        this.posts = JSON.parse(window.localStorage.getItem('posts'));
+        
+        
+        // await this.view.render();
+        
+
+        await this.GetPosts(this.posts);
+        await this.after_setup();
+        
+    }
+    async after_setup() {
+        
+        // await this.view.after_render();
+        await this.UpdatePosts(this.posts);
+        
     }
 
-    async GetPosts() {
-        let allPosts = await this.model.GetPosts();
-        console.log(allPosts);
+    async GetPosts(posts) {
+        // console.log(posts);
+        let allPosts;
+        if (posts === null) {
+            allPosts = await this.model.GetPosts();
+            allPosts = allPosts.reverse();
+            window.localStorage.setItem('posts', JSON.stringify(allPosts));
+            
+        } else {
+            allPosts = JSON.parse(window.localStorage.getItem('posts'));
+        }
+        this.posts = allPosts;
+        // this.posts = posts;
+        // console.log(posts);
+        // this.posts = allPosts;
         
+    }
+
+    async UpdatePosts(allPosts) {
+        // console.log(allPosts);
+        allPosts = allPosts.slice(0, 9);
+        const postsToRender = allPosts.map( async (post, index) => {
+            console.log(post);
+            post += this.view.template(post, index)
+            return post;
+        });
+        Promise.all(postsToRender).then( (resolve) => {
+            this.container.append(resolve);
+            // console.log(resolve);
+            // console.log(this.view.template(resolve));
+        });
+
+        
+
+        /*
+        const postsToRender = await
+        await postsToRender.map((post, index) => {
+            // console.log(post);
+            // console.log(index);
+            this.view.template(post, index);
+            this.container.append(this.view.template(post, index));
+        });
+        */
+        
+        /* 
+        await allPosts.forEach((post, index) => {
+            // console.log(post);
+            // this.view.template(post, index);
+            this.container.append(this.view.template(post, index));
+        });
+        */
     }
 
     async SavePost(data) {
         // console.log("a");
         // console.log(data);
         let postCreated = await this.model.CreatePost(data);
-        console.log(postCreated);
+        // console.log(postCreated);
         return postCreated;
         
     }
