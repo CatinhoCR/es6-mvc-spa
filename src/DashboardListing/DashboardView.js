@@ -13,26 +13,32 @@ export default class DashboardView {
     async test() {
 
     }
-    async template(post, i) {
+    template(post, i) {
         // inside a loop
-        
         // console.log(post);
+       // console.log(post);
         // article.setAttribute('data-target', i);
+        // console.log("Template file return");
+        let article;
+       //  let outputContent = await function() {
+
         
-        const article = /*html*/`
-            <div class="article list-item col col-4">
-                <button type="button" class="delete-post main-btn btn" id="delete-${post.index}">X</button>
-                <a href="#" class="show-post" id="post-${post.id}">
-                    <span class="category">News</span>
-                    <h2>${post.title}</h2>
-                    <p>${post.body}</p>
-                    <span class="date">10.14.19</span>
-                </a>
-            </div>
-        `;
-         
+            article = /*html*/`
+                <div class="article list-item col col-4">
+                    <button type="button" class="delete-post main-btn btn" id="delete-${post.index}">X</button>
+                    <a href="#" class="show-post" id="post-${post.id}">
+                        <span class="category">News</span>
+                        <h2>${post.title}</h2>
+                        <p>${post.body}</p>
+                        <span class="date">10.14.19</span>
+                    </a>
+                </div>
+            `;
+            return article;
+  //      };
+//        return outputContent(); 
+        // console.log(article);
         
-        return article;
 
 
         

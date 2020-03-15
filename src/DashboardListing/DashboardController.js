@@ -11,25 +11,35 @@ export default class DashboardCtrl {
     }
     async setupView() {
         this.container = document.getElementById('page-container');
-        this.posts = JSON.parse(window.localStorage.getItem('posts'));
+        // this.posts = JSON.parse(window.localStorage.getItem('posts'));
         
         
         // await this.view.render();
         
 
-        await this.GetPosts(this.posts);
+        await this.GetPosts();
         await this.after_setup();
         
     }
     async after_setup() {
-        
+        console.log("After Setup");
         // await this.view.after_render();
         await this.UpdatePosts(this.posts);
         
     }
 
-    async GetPosts(posts) {
+    async GetPosts() {
         // console.log(posts);
+        try {
+            let posts = await this.model.GetPosts();
+            console.log(posts);
+            this.posts = posts;
+        } catch (error) {
+            console.log(error);
+        }
+        console.log(this.posts);
+
+        /*
         let allPosts;
         if (posts === null) {
             allPosts = await this.model.GetPosts();
@@ -37,9 +47,10 @@ export default class DashboardCtrl {
             window.localStorage.setItem('posts', JSON.stringify(allPosts));
             
         } else {
-            allPosts = JSON.parse(window.localStorage.getItem('posts'));
+            allPosts = await JSON.parse(window.localStorage.getItem('posts'));
         }
-        this.posts = allPosts;
+        */
+        // this.posts = allPosts;
         // this.posts = posts;
         // console.log(posts);
         // this.posts = allPosts;
@@ -47,18 +58,54 @@ export default class DashboardCtrl {
     }
 
     async UpdatePosts(allPosts) {
-        // console.log(allPosts);
+
+        console.log(allPosts);
+        let posts = [];
         allPosts = allPosts.slice(0, 9);
+        console.log(allPosts);
+        
+        this.container.innerHTML = allPosts.forEach( (post, index) => {
+            let thisPost = this.view.template(post, index);
+            console.log(thisPost);
+            posts.push(thisPost);
+        });
+        this.container.innerHTML = posts.join('');
+        // let post = 
+        /*
+        this.container.innerHTML = allPosts.map( (post, index) => {
+            // console.log(post);
+            //  console.log(index);
+            // let thisPost = JSON.stringify(this.view.template(post, index));
+            let thisPost = this.view.template(post, index);
+            console.log(thisPost);
+            posts.push(thisPost);
+            // this.container.innerHTML = this.view.template(post, index);
+            // this.container.append(this.view.template(post));
+            // console.log(post);
+            // this.container.innerHTML = template(post);
+
+        }).join('');
+        */
+        // console.log(posts);
+//         this.container.innerHTML = posts;
+        /*
         const postsToRender = allPosts.map( async (post, index) => {
-            console.log(post);
-            post += this.view.template(post, index)
-            return post;
-        });
-        Promise.all(postsToRender).then( (resolve) => {
-            this.container.append(resolve);
+            // console.log("Map function await to create each post with controller values importing template file");
+            // console.log(post);
+            // post = await this.view.template(post, index);
+            
+            // this.container.append(this.view.template(post));
+            // return post;
+        });*/
+        // console.log("Update view in controller with complete object");
+        // console.log(postsToRender);
+
+
+        // Promise.all(postsToRender).then( (post) => {
+            // this.container.append(resolve);
             // console.log(resolve);
-            // console.log(this.view.template(resolve));
-        });
+            // this.container.append(this.view.template(post));
+        // });
 
         
 

@@ -172,7 +172,7 @@ export default class HeaderComponent {
                 <div class="container">
                     <div class="navbar-brand">
                         <a class="navbar-item" href="/#/">
-                            <h1>Newsmedia</h1>
+                            <h1>Sample babel boilerplate for testing stuff</h1>
                         </a>
 
                         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">

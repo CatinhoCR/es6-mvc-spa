@@ -28,6 +28,7 @@ class App {
         // this.header.innerHTML = await this.Navbar.template();
         // await this.Navbar.after_render();
         await this.Navbar.render();
+        // console.log("App");
         await this.DashboardCtrl.setupView();
         
     }   

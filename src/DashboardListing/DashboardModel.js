@@ -6,7 +6,13 @@ export default class PostsModel {
     }
     init() {
 
-
+        return fetch('https://jsonplaceholder.typicode.com/posts/' + id)
+            .then(
+                response => response.json(),
+                error => error)
+            .then(function (post) {
+                return post;
+            });
     }
     GetPosts() {
         var posts = fetch('https://jsonplaceholder.typicode.com/posts', {
@@ -16,17 +22,16 @@ export default class PostsModel {
                 'Access-Control-Allow-Origin': '*'
             },
         })
-            .then((res) => {
-                // console.log(res.json());
-                return res.json();
-            })
-            .then((json) => {
-                // console.log(json);
-                return json;
+            .then(
+                response => response.json(),
+                error => error)
+            .then((posts) => {
+                return posts;
             })
             .catch((err) => {
-                console.log(err);
+                console.log(error);
             });
+
         return posts;
     }
 
