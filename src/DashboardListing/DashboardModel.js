@@ -35,19 +35,21 @@ export default class PostsModel {
         return posts;
     }
 
-    DeletePost(id) {
+    DeletePost(deletedPost) {
         var deletedPost = fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-            .then((res) => {
-                // console.log(res);
-                return res;
+            .then(
+                response => response.json(),
+                error => error)
+            .then((deletedPost) => {
+                return  deletedPost;
             })
             .catch((err) => {
-                console.log(err);
+                console.log(error);
             });
         return deletedPost;
     }
@@ -99,20 +101,20 @@ export default class PostsModel {
                 userId: 10
             }),
             headers: {
-                "Content-type": "application/json; charset=UTF-8"
+                "Content-type": "application/json; charset=UTF-8",
+                'Access-Control-Allow-Origin': '*'
             },
         })
-            .then((res) => {
-                // console.log(res);
-                return res;
-            })
-            .then((json) => {
-                // console.log(json);
-                return json;
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        .then(
+            response => response.json(),
+            error => error)
+        .then((newPost) => {
+            return  newPost;
+        })
+        .catch((err) => {
+            console.log(error);
+        });
+
 
         return newPost;
     }

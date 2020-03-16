@@ -5,6 +5,7 @@ export default class HeaderComponent {
     constructor() {
         this.PostsCtrl = new DashboardCtrl();
         this.header = null || document.getElementById('header-container');
+        
     }
     async render() {
         // Lazy Load | This should be moved to a router. ???s
@@ -124,7 +125,7 @@ export default class HeaderComponent {
             body: body
         }
         var savePost = await this.PostsCtrl.SavePost(data);
-        console.log(savePost);
+        // console.log(savePost);
         // console.log(data);
         /*
         if ( !isForm || isForm === null) {
