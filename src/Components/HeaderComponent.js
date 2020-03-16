@@ -5,62 +5,34 @@ export default class HeaderComponent {
     constructor() {
         this.PostsCtrl = new DashboardCtrl();
         this.header = null || document.getElementById('header-container');
-        
     }
+
     async render() {
-        // Lazy Load | This should be moved to a router. ???s
-        
         this.header.innerHTML = await this.template();
         await this.after_render();
-        // console.log(await this.template());
-        // This works here, but not if called through the render() function in another component. Look into this and see why the this object is changing to undefined for invocation from another class (like app.js). The methods then would be undefined for the this object.
-
-        // I am thinking a best way to do this would be to have a reusable setupTemplate function, which would then call a static HTML template file, and then would do a sprintf or search and replace through stuff if dynamic values needed to be loaded into that html file. But it's just a general idea for now and not sure on how to implement.
     }
+
     async after_render() {
+
         this.createBtn = document.getElementById('add-post-btn');
 		this.createBtn.addEventListener('click', event => {
-			// console.log(event);
-			// console.log(this);
-            // this would only toggle form show/hide and clear form values.
-            // event.stopPropagation();
+            // this only toggles form show/hide and clear form values.
             this.toggleContent(event.target)
         });
-        // this.PostsCtrl.SavePost("a");
-        // var form = null || document.getElementById('create-post-form');
-        // console.log(form);
+
         this.saveBtn = document.getElementById('save-post-btn');
         this.saveBtn.addEventListener('click', async (event) => {
             event.preventDefault();
-            // console.log(event);
-            // console.log(event.target.form);
-            // var title = document.getElementById('post-title').value;
-            // var body = document.getElementById('post-content').value;
-            // console.log(title);
-            // console.log(body);
-
             this.newPostForm(event);
-
-            // console.log(this.newPostForm()); PROMISE
-            // let form = event.target.form;
-            // var data = await new FormData(form);
-            // console.log(await data);
-            // console.log(await data);
-            // await this.newPostForm();
-            
             
             // capture data, validate it, store it to local object if valid || errors FE if unvalid
             // POST request to save new post. Update view to show it on list.
-
             // event.stopPropagation();
         }, false);
     }
 
-    // button has a data-target attribute, or button has an id to be matched with a data atrribute on the toggleable div... is there a better way to this than data attributes?
-    // Could be done with an anchor element to, and get hash value.. but that would probably interfere with router?
     async toggleContent(elem, time) {
         // This should be moved to a reusable file, an importable and reusable component to create toggles?
-        
         // console.log(elem);
         // console.log(elem.dataset.target)
         let target = elem.dataset.target;
@@ -115,11 +87,8 @@ export default class HeaderComponent {
     async newPostForm(event) {
         // This should get data, then validate it. 
         // If OK, format it, get current date and send to controller for saving. If not print errors.
-        // console.log(event.target.form);
         var title = document.getElementById('post-title').value;
         var body = document.getElementById('post-content').value;
-        // console.log(title);
-        // console.log(body);
         let data = {
             title: title,
             body: body
