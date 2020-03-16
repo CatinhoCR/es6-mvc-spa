@@ -2,13 +2,14 @@
     padding: rem(20);
 }
 .container {
-    
     display: flex;
     margin: 0 auto;
     flex-wrap: wrap;
     flex-direction: column;
-    @include bp-sm {
+    @include bp-md {
         flex-direction: row;
+        justify-content: space-between;
+        // align-items: flex-end;
     }
 }
 

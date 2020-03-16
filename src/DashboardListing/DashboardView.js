@@ -9,6 +9,24 @@ export default class DashboardView {
     }
     async after_render() {
         // get buttons
+        /*
+        this.deletePostBtns = document.querySelectorAll('.delete-post');
+        this.deletePostBtns.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                console.log(index);
+                this.RemovePost(index);
+                // let postId = btn.id;
+                // let postId = postId.split('-')[1];
+                // console.log(postId);
+                // console.log(postId);
+                // console.log(index);
+                // let rp = RemovePost(postId, index);
+                // this.deletePost(postId, index, postsPage;
+                // this.render();
+
+            });
+        });
+        */
     }
     async test() {
 
@@ -17,7 +35,7 @@ export default class DashboardView {
         let article;
         article = /*html*/`
             <div class="article list-item col col-4">
-                <button type="button" class="delete-post main-btn btn" id="deleteIndex-${i}">X</button>
+                <button type="button" class="delete-post delete-btn btn" id="deleteIndex-${i}">X</button>
                 <a href="#" class="show-post" id="post-${post.id}">
                     <span class="category">News</span>
                     <h2>${post.title}</h2>

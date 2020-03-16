@@ -6,6 +6,10 @@
     text-align: justify;
 }
 
+.main-color {
+    color: $main-color;
+}
+
 .clearfix {
 
     *zoom: 1;
@@ -23,7 +27,7 @@
 }
 
 .toggle-content {
-	// display: none;
+	display: none;
 	height: 0;
 	overflow: hidden;
     transition: height 350ms ease-in-out;

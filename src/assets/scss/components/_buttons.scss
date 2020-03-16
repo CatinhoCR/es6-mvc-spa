@@ -1,18 +1,59 @@
 .btn {
+    cursor: pointer;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: rem(8) rem(12);
+    @include font-size(16);
+    line-height: 1.5;
+    border-radius: rem(4);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     &.main-btn {
+        background-color: $main-color;
+        color: #fff;
+        &:hover {
+            background-color: #fff;
+            border-color: #fff;
+            color: $main-color;
+        }
+    }
+    &.sec-btn {
+        background-color: $sec-color;
+        color: #fff;
+        &:hover {
+            background-color: #fff;
+            border-color: #fff;
+            color: $sec-color;
+        }
+    }
+    &.third-btn {
+        background-color: $third-color;
+        color: #fff;
+        &:hover {
+            background-color: #fff;
+            border-color: #fff;
+            color: $third-color;
+        }
+    }
+    &.delete-btn {
         position: absolute;
         top: -13px;
         right: -10px;
         border-radius: 100%;
         background-color: transparent;
-        border-color: #fff;
-        font-size: 16px;
-        height: 26px;
-        width: 26px;
+        border: 1px solid #fff;
+        padding: 0;
+        @include font-size(16);
+        height: rem(26);
+        width: rem(26);
         color: #fff;
         transition: all .2s ease-in-out;
-        &:hover{
-            background-color:#fff;
+
+        &:hover {
+            background-color: #fff;
             color: $text-color;
         }
     }

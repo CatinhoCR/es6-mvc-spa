@@ -25,6 +25,7 @@ export default class DashboardCtrl {
 
     async after_setup() {
         // Here we get event listeners for create/delete post buttons and update view
+        
         this.deletePostBtns = document.querySelectorAll('.delete-post');
         this.deletePostBtns.forEach((btn, index) => {
             btn.addEventListener('click', () => {

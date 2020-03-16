@@ -15,133 +15,114 @@ export default class HeaderComponent {
     async after_render() {
 
         this.createBtn = document.getElementById('add-post-btn');
-		this.createBtn.addEventListener('click', event => {
+        this.createBtn.addEventListener('click', event => {
             // this only toggles form show/hide and clear form values.
-            this.toggleContent(event.target)
+            this.toggleContent(event.target);
         });
 
         this.saveBtn = document.getElementById('save-post-btn');
         this.saveBtn.addEventListener('click', async (event) => {
             event.preventDefault();
-            this.newPostForm(event);
-            
-            // capture data, validate it, store it to local object if valid || errors FE if unvalid
-            // POST request to save new post. Update view to show it on list.
-            // event.stopPropagation();
+            console.log(event);
+            this.newPostForm(event.target);
         }, false);
     }
 
     async toggleContent(elem, time) {
         // This should be moved to a reusable file, an importable and reusable component to create toggles?
-        // console.log(elem);
+        console.log(elem);
         // console.log(elem.dataset.target)
         let target = elem.dataset.target;
         let content = document.getElementById(target);
         // console.log(content);
-        function show(content) {
+        function show(elem) {
             // // Get the natural height of the element
-            // var getHeight = function () {
-            //     elem.style.display = 'block'; // Make it visible
-            //     var height = elem.scrollHeight + 'px'; // Get it's height
-            //     elem.style.display = ''; //  Hide it again
-            //     return height;
-            // };
+            var getHeight = function () {
+                elem.style.display = 'block'; // Make it visible
+                var height = elem.scrollHeight + 'px'; // Get it's height
+                elem.style.display = ''; //  Hide it again
+                return height;
+            };
 
-            // var height = getHeight(); // Get the natural height
-            // elem.classList.add('is-visible'); // Make the element visible
-            // elem.style.height = height; // Update the max-height
+            var height = getHeight(); // Get the natural height
+            elem.classList.add('is-visible'); // Make the element visible
+            elem.style.height = height; // Update the max-height
 
-            // // Once the transition is complete, remove the inline max-height so the content can scale responsively
-            // window.setTimeout(function () {
-            //     elem.style.height = '';
-            // }, 350);
-            content.classList.add('is-visible');
+            // Once the transition is complete, remove the inline max-height so the content can scale responsively
+            window.setTimeout(function () {
+                elem.style.height = '';
+            }, 350);
+            // content.classList.add('is-visible');
             // console.log("SHow");
         }
 
-        function hide(content) {
-            // // Give the element a height to change from
-            // elem.style.height = elem.scrollHeight + 'px';
+        function hide(elem) {
+            // Give the element a height to change from
+            elem.style.height = elem.scrollHeight + 'px';
 
-            // // Set the height back to 0
-            // window.setTimeout(function () {
-            //     elem.style.height = '0';
-            // }, 1);
+            // Set the height back to 0
+            window.setTimeout(function () {
+                elem.style.height = '0';
+            }, 1);
 
-            // // When the transition is complete, hide it
-            // window.setTimeout(function () {
-            //     elem.classList.remove('is-visible');
-            // }, 350);
+            // When the transition is complete, hide it
+            window.setTimeout(function () {
+                elem.classList.remove('is-visible');
+            }, 350);
             // console.log("Hide");
-            content.classList.remove('is-visible');
+            // content.classList.remove('is-visible');
         }
-        
+
         // Toggler
-        if( content.classList.contains('is-visible') ) {
+        if (content.classList.contains('is-visible')) {
             hide(content);
             return;
         }
         show(content);
     }
 
-    async newPostForm(event) {
+    async newPostForm(target) {
         // This should get data, then validate it. 
         // If OK, format it, get current date and send to controller for saving. If not print errors.
         var title = document.getElementById('post-title').value;
         var body = document.getElementById('post-content').value;
-        let data = {
-            title: title,
-            body: body
-        }
-        var savePost = await this.PostsCtrl.SavePost(data);
-        // console.log(savePost);
-        // console.log(data);
-        /*
-        if ( !isForm || isForm === null) {
-            console.log(isForm);
-        }
-        
-        
 
-        this.data;
-        // console.log(form);
-        function logData(e) {
-            var title = document.getElementById('post-title').value;
-			var body = document.getElementById('post-content').value;
+        // Validate Data
+        this.errorsContainer = document.getElementById('show-error');
+        this.errorsContainer.innerHTML = '';
+        if (title === '' || body === '') {
+            console.log("empty");
+            let error = document.createElement('p');
+            error.setAttribute('class', 'main-color');
+            error.innerHTML = '';
+            if (title === '' && body != '') {
+                error.innerHTML = 'Please add TITLE to your new post.';
+            } else if (body === '' && title != '') {
+                error.innerHTML = 'Please add a CONTENT to your new post.';
+            } else {
+                error.innerHTML = 'Please add a TITLE and CONTENT to your new post.';
+            }
+            this.errorsContainer.append(error);
+        } else {
+            let data = {
+                title: title,
+                body: body
+            }
 
-			let data = {
-				title: title,
-				body: body
-            };
-            e.stopPropagation();
-            e.preventDefault();
-            this.data = data;
-        }*/
-        // const newPostForm = document.getElementById('create-post-form');
-        // newPostForm.addEventListener('submit', logData);
-        // console.log(this.data);
-        // var postsN = await this.postsC.NewPost(this.data);
-        // console.log(postsN);
-        /*
-		this.submitBtn = document.getElementById('save-post-btn');
-		this.submitBtn.addEventListener('click', event => {
-			
-			// NO time for validations... 
-			
-			console.log(data);
-			console.log(event);
-			this.createPost(data);
-        });
-        */
+            var savePost = await this.PostsCtrl.SavePost(data);
+            this.toggleContent(target);
+            document.getElementById('post-title').value = '';
+            document.getElementById('post-content').value = '';
+        }
     }
 
     async template() {
         // this could be moved to a static HTML file that gets imported in the render function. Leaving as is for now.
         const HeaderContent = /*html*/`
-            <nav class="navbar" role="navigation" aria-label="main navigation">
+            <nav class="navbar main-nav" role="navigation" aria-label="main navigation">
                 <div class="container">
                     <div class="navbar-brand">
-                        <a class="navbar-item" href="/#/">
+                        <a class="" href="/#/">
                             <h1>Sample babel boilerplate for testing stuff</h1>
                         </a>
 
@@ -153,7 +134,7 @@ export default class HeaderComponent {
                     </div>
 
                     <div id="navbarBasicExample" class="navbar-menu is-active" aria-expanded="false">
-                        <div class="navbar-start">
+                        <div class="">
                             <a class="navbar-item" href="/#/">
                                 Home
                             </a>
@@ -167,11 +148,6 @@ export default class HeaderComponent {
                                 Secret
                             </a>-->
                         </div>
-                        <form class="form add-post toggle-content" id="create-post-form">
-                            <input name="postTitle" id="post-title" type="text" placeholder="Title"  />
-                            <textarea name="" id="post-content" placeholder="Your post content.."></textarea>
-                            <button type="submit" class="btn" id="save-post-btn">Save</button>                        
-                        </form>
                         <!--<div class="navbar-end">
                             <div class="navbar-item">
                                 <div class="buttons">
@@ -185,8 +161,15 @@ export default class HeaderComponent {
                             </div>
                         </div>-->
                     </div>
-                </div>
+                </div> <!-- container -->
             </nav>
+            <form class="form add-post toggle-content" id="create-post-form">
+                <h2>Add New Post</h2>
+                <input name="postTitle" id="post-title" type="text" placeholder="Title"  />
+                <textarea name="" id="post-content" placeholder="Your post content.." rows="8"></textarea>
+                <div id="show-error"></div>
+                <button type="submit" class="btn third-btn" id="save-post-btn" data-target="create-post-form">Save</button>
+            </form>
         `;
         return HeaderContent;
     }
