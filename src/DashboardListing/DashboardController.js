@@ -8,8 +8,24 @@ export default class DashboardCtrl {
     constructor() {
         this.model = new PostsModel();
         this.view = new DashboardView();
+        
+        
+
 
     }
+    async setupView() {
+        this.container = document.getElementById('page-container');
+        this.posts = JSON.parse(window.localStorage.getItem('posts'));
+        this.shownPosts = [];
+
+        // 
+        await this.GetPosts();
+        this.show = await this.ShowPosts(this.posts);
+        return this.show;
+        // 
+    }
+
+    /*
     async setupView() {
         // Here we create local reference to DOM container and an initial global post object
         this.container = document.getElementById('page-container');
@@ -23,6 +39,7 @@ export default class DashboardCtrl {
         
         await this.after_setup();
     }
+    */
 
     async after_setup() {
         // Here we get event listeners for create/delete post buttons and update view
@@ -63,8 +80,12 @@ export default class DashboardCtrl {
             let thisPost = this.view.template(post, index);
             posts.push(thisPost);
         });
-        this.container.innerHTML = posts.join('');
+        
         this.shownPosts = allPosts;
+        return this.container.innerHTML = posts.join('');
+        
+        // console.log(this.shownPosts);
+        // return this.shownPosts;
         // console.log(allPosts);
         
         // Write to global var the list of shown posts. So that update view can get it and act accordingly.

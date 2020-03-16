@@ -4,12 +4,15 @@ import DashboardCtrl from './../DashboardListing/DashboardController';
 export default class HeaderComponent {
     constructor() {
         this.PostsCtrl = new DashboardCtrl();
-        this.header = null || document.getElementById('header-container');
+        // this.header = null || document.getElementById('header-container');
     }
 
     async render() {
-        this.header.innerHTML = await this.template();
-        await this.after_render();
+        // this.header.innerHTML = await this.template();
+        // await this.getTemplate();
+        // await this.after_render();
+
+        return await this.template();
     }
 
     async after_render() {

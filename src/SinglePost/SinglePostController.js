@@ -8,10 +8,15 @@ export default class SinglePostCtrl {
 
     }
     async setupView() {
-        console.log("Single POst");
+        console.log("Single Post");
     }
 
     async after_setup() {
 
     }
+
+    async template() {
+        
+    }
+    
 }
