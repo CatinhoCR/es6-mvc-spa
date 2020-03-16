@@ -25,7 +25,7 @@ export default class DashboardView {
         
             article = /*html*/`
                 <div class="article list-item col col-4">
-                    <button type="button" class="delete-post main-btn btn" id="delete-${post.index}">X</button>
+                    <button type="button" class="delete-post main-btn btn" id="deleteIndex-${i}">X</button>
                     <a href="#" class="show-post" id="post-${post.id}">
                         <span class="category">News</span>
                         <h2>${post.title}</h2>

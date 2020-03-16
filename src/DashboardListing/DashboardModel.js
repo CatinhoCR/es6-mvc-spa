@@ -35,7 +35,7 @@ export default class PostsModel {
         return posts;
     }
 
-    DeletePost(deletedPost) {
+    DeletePost(id) {
         var deletedPost = fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
             method: 'DELETE',
             headers: {
