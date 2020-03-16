@@ -8,8 +8,7 @@
     flex-direction: column;
     @include bp-md {
         flex-direction: row;
-        justify-content: space-between;
-        // align-items: flex-end;
+        
     }
 }
 

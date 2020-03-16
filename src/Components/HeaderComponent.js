@@ -23,14 +23,14 @@ export default class HeaderComponent {
         this.saveBtn = document.getElementById('save-post-btn');
         this.saveBtn.addEventListener('click', async (event) => {
             event.preventDefault();
-            console.log(event);
+            // console.log(event);
             this.newPostForm(event.target);
         }, false);
     }
 
     async toggleContent(elem, time) {
         // This should be moved to a reusable file, an importable and reusable component to create toggles?
-        console.log(elem);
+        // console.log(elem);
         // console.log(elem.dataset.target)
         let target = elem.dataset.target;
         let content = document.getElementById(target);
@@ -91,7 +91,6 @@ export default class HeaderComponent {
         this.errorsContainer = document.getElementById('show-error');
         this.errorsContainer.innerHTML = '';
         if (title === '' || body === '') {
-            console.log("empty");
             let error = document.createElement('p');
             error.setAttribute('class', 'main-color');
             error.innerHTML = '';
@@ -100,6 +99,7 @@ export default class HeaderComponent {
             } else if (body === '' && title != '') {
                 error.innerHTML = 'Please add a CONTENT to your new post.';
             } else {
+                console.log("empty");
                 error.innerHTML = 'Please add a TITLE and CONTENT to your new post.';
             }
             this.errorsContainer.append(error);
