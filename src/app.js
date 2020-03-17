@@ -32,11 +32,8 @@ class App {
             '/post/:id': this.SinglePostCtrl
         };
 
-        // This is how its working right now
-        // await this.Navbar.render();
-        // await this.DashboardCtrl.setupView();
 
-        // This is how it should work from now on. Need to review how things are being inserted into innerHTML and appended, so that it accounts for it from being pulled from the router object class. Need to review each component and controller so it returns what this is expecting.
+        // This would need to be moved to router.js, imported and used from there. Not here... also there are hundreds of improvements to make here, plus the 404 is not really set up, for now it just exists and works at functional but basic level.
         await this.router();
 
     }

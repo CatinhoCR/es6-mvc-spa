@@ -2,6 +2,7 @@ import Utils from './../helpers/Utilities';
 import SinglePostModel from './SinglePostModel';
 import SinglePostView from './SinglePostView';
 import ToggleComponent from './../Components/ToggleComponent';
+import CommentsController from './../PostComments/CommentsController';
 
 export default class SinglePostCtrl {
 
@@ -9,10 +10,11 @@ export default class SinglePostCtrl {
         this.model = new SinglePostModel();
         this.view = new SinglePostView();
         this.toggleComponent = new ToggleComponent();
+        this.comments = new CommentsController();
     }
     
     async setupView() {
-        console.log("Single Post");
+        // console.log("Single Post");
         this.container = document.getElementById('page-container');
         this.singlePost = JSON.parse(window.localStorage.getItem('singlePost'));
         await this.GetPostContent();
@@ -21,7 +23,12 @@ export default class SinglePostCtrl {
     }
 
     async after_setup() {
-        // *** TODO: This would be a for each, with a querySelectorAll from another attr, NOT id. To follow DRY principles... no time now. Fix.
+        this.commentSection = document.getElementById('comments-container');
+        this.commentSection.innerHTML = await this.comments.setupView();
+        await this.comments.after_setup();
+
+        // *** TODO: Make this modular...
+        // Option 1: This would be a for each, with a querySelectorAll from another attr, NOT id. To follow DRY principles... no time now. Fix.
         this.editTitleBtn = document.getElementById('edit-post-title');
         this.editTitleBtn.addEventListener('click', event => {
             console.log("A");
@@ -63,11 +70,11 @@ export default class SinglePostCtrl {
     async GetPostContent() {
         // Get requested resource from URL
         let request = Utils.parseRequestURL();
-        console.log(request.id);
+        // console.log(request.id);
 
         // if localstorage single post object not exists
         if (!this.singlePost || this.singlePost === null) {
-            console.log("Fetch post from DB");
+            // console.log("Fetch post from DB");
             try {
                 let singlePost = await this.model.GetPostContent(request.id);
                 this.singlePost = singlePost;
@@ -85,10 +92,10 @@ export default class SinglePostCtrl {
                 console.log(error);
             }
         } else {
-            console.log("Post already exists in localStorage");
+            // console.log("Post already exists in localStorage");
         }
         this.singlePost = JSON.parse(window.localStorage.getItem('singlePost'));
-        console.log(this.singlePost);
+        // console.log(this.singlePost);
     }
 
     async ShowPostContent(post) {
@@ -109,20 +116,28 @@ export default class SinglePostCtrl {
         // Type 1 would be title here, type 2 would be content. Could be optimized, no time RN.
         if( type === 1) {
             // console.log("title");
-            this.newText = document.getElementById('new-title').value;
-            let newPost = await this.model.EditPostTitle(request.id, this.newText);
-            // console.log(newPost);
-            document.getElementById('title').innerHTML = newPost.title;
-            localStorage.setItem('singlePost', JSON.stringify(newPost));
+            try {
+                this.newText = document.getElementById('new-title').value;
+                let newPost = await this.model.EditPostTitle(request.id, this.newText);
+                // console.log(newPost);
+                document.getElementById('title').innerHTML = newPost.title;
+                localStorage.setItem('singlePost', JSON.stringify(newPost));
+            } catch(error) {
+                console.log(error);
+            }
+            
         } else {
-            // console.log("content");
-            this.newText = document.getElementById('new-content').value;
-            let newPost = await this.model.EditPostContent(request.id, this.newText);
-            // console.log(newPost);
-            document.getElementById('content').innerHTML = newPost.body;
-            localStorage.setItem('singlePost', JSON.stringify(newPost));
+            try {
+                // console.log("content");
+                this.newText = document.getElementById('new-content').value;
+                let newPost = await this.model.EditPostContent(request.id, this.newText);
+                // console.log(newPost);
+                document.getElementById('content').innerHTML = newPost.body;
+                localStorage.setItem('singlePost', JSON.stringify(newPost));
+            } catch(error) {
+                console.log(error);
+            }
         }
-        
     }
 
     /*

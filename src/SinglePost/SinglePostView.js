@@ -60,6 +60,9 @@ export default class SinglePostView {
                 </button>
             </div>
         </article>
+        <section class="comments-section" id="comments-container">
+
+        </section>
         `;
         return article;
 
