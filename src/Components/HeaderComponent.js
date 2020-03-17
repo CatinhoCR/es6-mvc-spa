@@ -2,9 +2,11 @@
 
 import Utils from './../helpers/Utilities';
 import DashboardCtrl from './../DashboardListing/DashboardController';
+import ToggleComponent from './../Components/ToggleComponent';
 export default class HeaderComponent {
     constructor() {
         this.PostsCtrl = new DashboardCtrl();
+        this.toggleComponent = new ToggleComponent();
         // this.header = null || document.getElementById('header-container');
     }
 
@@ -29,7 +31,7 @@ export default class HeaderComponent {
         this.createBtn = document.getElementById('add-post-btn');
         this.createBtn.addEventListener('click', event => {
             // this only toggles form show/hide and clear form values.
-            this.toggleContent(event.target);
+            this.toggleComponent.toggleContent(event.target);
         });
 
         this.saveBtn = document.getElementById('save-post-btn');
@@ -40,6 +42,7 @@ export default class HeaderComponent {
         }, false);
     }
 
+    /*
     async toggleContent(elem, time) {
         // This should be moved to a reusable file, an importable and reusable component to create toggles?
         // console.log(elem);
@@ -92,6 +95,7 @@ export default class HeaderComponent {
         }
         show(content);
     }
+    */
 
     async newPostForm(target) {
         // This should get data, then validate it. 
@@ -122,7 +126,7 @@ export default class HeaderComponent {
             }
 
             var savePost = await this.PostsCtrl.SavePost(data);
-            this.toggleContent(target);
+            this.toggleComponent.toggleContent(target);
             document.getElementById('post-title').value = '';
             document.getElementById('post-content').value = '';
         }

@@ -37,24 +37,28 @@ export default class SinglePostView {
         <article class="article post-details">
             <div class="article-header">
                 <span class="category">News</span>
-                <h1 class="post-title is-visible" id="post-title">${post.title}</h1>
-                <form class="form post-title-edit" id="post-title-form">
-                    <input class="" id="" value="${post.title}"/>
-                    <button class="" id="save-edit-title" type="">Save Changes</button>
+                <h1 class="post-title is-visible toggle-content" id="title">${post.title}</h1>
+                <form class="form post-title-edit toggle-content" id="edit-title-form">
+                    <textarea class="" id="new-title" rows="4">${post.title}</textarea>
+                    <button class="btn" id="save-edit-title" type="submit" data-target="edit-title-form" data-panel-header="title">Save Changes</button>
                 </form>
                 <span class="date">10.14.19</span>
-                <button class="edit-btn btn" id="edit-post-title">
+                <button class="edit-btn transparent-btn btn" id="edit-post-title" type="button" data-target="edit-title-form" data-panel-header="title" data-focus-area="new-title">
                     Edit
                 </button>
             </div>
             <div class="article-content">
-                <p>${post.body}.</p>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+                <p id="content" class="is-visible post-content toggle-content">${post.body}.</p>
+                <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p> -->
+                <form class="form post-content-edit toggle-content" id="edit-content-form">
+                    <textarea id="new-content" rows="8">${post.body}</textarea>
+                    <button class="btn" id="save-edit-content" type="submit" data-target="edit-content-form" data-panel-header="content">Save Changes</button>
+                </form>
+                <button class="edit-btn transparent-btn btn" id="edit-post-content" type="button" data-target="edit-content-form" data-panel-header="content" data-focus-area="new-content">
+                    Edit
+                </button>
             </div>
-            <button class="edit-btn btn" id="edit-post-content">
-                Edit
-            </button>
         </article>
         `;
         return article;

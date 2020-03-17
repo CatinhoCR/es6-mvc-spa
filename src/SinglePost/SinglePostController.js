@@ -1,13 +1,14 @@
 import Utils from './../helpers/Utilities';
 import SinglePostModel from './SinglePostModel';
 import SinglePostView from './SinglePostView';
+import ToggleComponent from './../Components/ToggleComponent';
 
 export default class SinglePostCtrl {
 
     constructor() {
         this.model = new SinglePostModel();
         this.view = new SinglePostView();
-
+        this.toggleComponent = new ToggleComponent();
     }
     
     async setupView() {
@@ -20,23 +21,43 @@ export default class SinglePostCtrl {
     }
 
     async after_setup() {
+        // *** TODO: This would be a for each, with a querySelectorAll from another attr, NOT id. To follow DRY principles... no time now. Fix.
         this.editTitleBtn = document.getElementById('edit-post-title');
         this.editTitleBtn.addEventListener('click', event => {
-            this.EditPostTitle();
+            console.log("A");
+            // this.EditPostTitle(event.target);
+            this.toggleComponent.toggleContent(event.target);
             // this only toggles form show/hide and clear form values.
             
         });
-        this.editTitleBtn = document.getElementById('save-edit-title');
-        this.editTitleBtn.addEventListener('click', event => {
+        this.saveTitleBtn = document.getElementById('save-edit-title');
+        this.saveTitleBtn.addEventListener('click', event => {
+            event.preventDefault();
             console.log(event);
+            this.toggleComponent.toggleContent(event.target);
+            this.SaveEditField(1);
+
         });
-        /*
-        this.deletePostBtns.forEach((btn, index) => {
-            btn.addEventListener('click', () => {
-                // console.log(index);
-                this.RemovePost(index);
-            });
-        });*/
+        
+        this.editContentBtn = document.getElementById('edit-post-content');
+        this.editContentBtn.addEventListener('click', event => {
+            console.log("B");
+            this.toggleComponent.toggleContent(event.target);
+            // this only toggles form show/hide and clear form values.
+            
+        });
+        
+        this.saveContentBtn = document.getElementById('save-edit-content');
+        this.saveContentBtn.addEventListener('click', event => {
+            event.preventDefault();
+            console.log(event);
+            this.toggleComponent.toggleContent(event.target);
+            this.SaveEditField(0);
+
+        });
+        
+        
+
     }
 
     async GetPostContent() {
@@ -71,26 +92,79 @@ export default class SinglePostCtrl {
     }
 
     async ShowPostContent(post) {
-        console.log(post);
-        
+        // console.log(post);
+        localStorage.setItem('singlePost', JSON.stringify(post));
         let thisPost = this.view.template(post);
+        
         return this.container.innerHTML = thisPost;
+        
         
     }
 
-    async EditPostTitle() {
+    async SaveEditField(type) {
+        // *** TODO: Keep this DRY, rushing this atm.
+        let request = Utils.parseRequestURL();
+        // console.log(request.id);
+
+        // Type 1 would be title here, type 2 would be content. Could be optimized, no time RN.
+        if( type === 1) {
+            // console.log("title");
+            this.newText = document.getElementById('new-title').value;
+            let newPost = await this.model.EditPostTitle(request.id, this.newText);
+            // console.log(newPost);
+            document.getElementById('title').innerHTML = newPost.title;
+            localStorage.setItem('singlePost', JSON.stringify(newPost));
+        } else {
+            // console.log("content");
+            this.newText = document.getElementById('new-content').value;
+            let newPost = await this.model.EditPostContent(request.id, this.newText);
+            // console.log(newPost);
+            document.getElementById('content').innerHTML = newPost.body;
+            localStorage.setItem('singlePost', JSON.stringify(newPost));
+        }
+        
+    }
+
+    /*
+
+
+    async saveNewTitle() {
+        // *** TODO: Keep this DRY, rushing this atm.
+        let request = Utils.parseRequestURL();
+        // console.log(request.id);
+        this.newText = document.getElementById('new-title').value;
+        let newPost = await this.model.EditPostTitle(request.id, this.newText);
+        // console.log(newPost);
+        await this.EditPostTitle();
+        
+        // await this.ShowPostContent(newPost);
+        
+        // this.titleText.classList.add('is-visible');
+        // this.titleForm.classList.remove('is-visible');
+    }
+
+    async EditPostContent(target) {
+
         // Crear input con el valor del titulo actual
-        this.titleText = document.getElementById('post-title');
-        this.titleForm = document.getElementById('post-title-form');
+        this.contentText = document.getElementById('content');
+        this.contentForm = document.getElementById('edit-content-form');
+        this.editInput = document.getElementById('new-content');
         // Toggler
-        if (this.titleText.classList.contains('is-visible')) {
-            this.titleText.classList.remove('is-visible');
-            this.titleForm.classList.add('is-visible');
+        if (this.contentText.classList.contains('is-visible')) {
+            // console.log("A");
+            target.innerHTML = 'Cancel';
+            this.contentText.classList.remove('is-visible');
+            this.contentForm.classList.add('is-visible');
+            this.editInput.focus();
             // hide(content);
             // return;
         } else {
-            this.titleText.classList.add('is-visible');
-            this.titleForm.classList.remove('is-visible');
+            // console.log("b");
+            
+            target.innerHTML = 'Edit';
+            this.contentText.classList.add('is-visible');
+            this.contentForm.classList.remove('is-visible');
+            
         }
         // show(content);
         // Capturar el save
@@ -100,12 +174,29 @@ export default class SinglePostCtrl {
 
     }
 
-    async EditPostBody() {
+    async saveNewContent() {
         // Crear input con el valor del titulo actual
         // Capturar el save
         // Validar que no este vacio
         // SI : guardar. esconder input y mostrar titulo nuevo, y API PATCH Request
         // NO : errorbundleRenderer.renderToStream
+        // *** TODO: Keep this DRY, rushing this atm.
+        let request = Utils.parseRequestURL();
+        // console.log(request.id);
+        this.newText = document.getElementById('new-content').value;
+        let newPost = await this.model.EditPostContent(request.id, this.newText);
+        // console.log(newPost);
+        await this.EditPostContent();
+        
+        // await this.ShowPostContent(newPost);
+
+        // this.titleText.classList.add('is-visible');
+        // this.titleForm.classList.remove('is-visible');
+
+    }
+    */
+
+    async UpdateView() {
 
     }
     

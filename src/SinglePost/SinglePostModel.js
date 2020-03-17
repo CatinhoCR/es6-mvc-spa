@@ -6,7 +6,7 @@ export default class SinglePostModel {
     }
     init() {
 
-        
+
     }
     GetPostContent(id) {
         // instead of this, get local shit
@@ -32,12 +32,56 @@ export default class SinglePostModel {
 
     }
 
-    EditPostTitle() {
-
+    EditPost(id, newTitle) {
+        
     }
 
-    EditPostContent() {
-        
+    EditPostTitle(id, newTitle) {
+        var newPost = fetch('https://jsonplaceholder.typicode.com/posts/' + id, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                title: newTitle
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+        })
+            .then(
+                response => response.json(),
+                error => error)
+            .then((newPost) => {
+                return newPost;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        return newPost;
+    }
+
+    EditPostContent(id, newContent) {
+        var newPost = fetch('https://jsonplaceholder.typicode.com/posts/' + id, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                body: newContent
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+        })
+            .then(
+                response => response.json(),
+                error => error)
+            .then((newPost) => {
+                return newPost;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        return newPost;
     }
 
     /*

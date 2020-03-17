@@ -39,19 +39,33 @@
         max-width: rem(720);
         width: 100%;
         margin: 0 auto;
-        .post-title-edit, .post-title {
+        .post-title-edit, .post-title, .post-content, .post-content-edit {
             display: none;
             &.is-visible {
                 display: block;
             }
         }
+        .btn {
+            margin: rem(10) 0 rem(20);
+        }
+        .article-header, .article-content {
+            position: relative;
+            .edit-btn {
+                position: absolute;
+                left: 100%;
+                top: 50%;
+                transform: translateY(-50%);
+                margin-top: 0;
+            }
+        }
+        
         h1 {
             @include font-size(38);
             &:first-letter {
                 text-transform: uppercase;
             }
         }
-        input {
+        input, textarea {
             width: 100%;
             background-color: transparent;
             color: #fff;
@@ -73,6 +87,9 @@
                 &:first-letter {
                     text-transform: uppercase;
                 }
+            }
+            textarea {
+                @include font-size(16);
             }
         }
     }
