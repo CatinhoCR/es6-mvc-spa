@@ -8,11 +8,8 @@ export default class DashboardCtrl {
     constructor() {
         this.model = new PostsModel();
         this.view = new DashboardView();
-        
-        
-
-
     }
+    
     async setupView() {
         this.container = document.getElementById('page-container');
         this.posts = JSON.parse(window.localStorage.getItem('posts'));
@@ -61,6 +58,7 @@ export default class DashboardCtrl {
             try {
                 let posts = await this.model.GetPosts();
                 this.posts = posts;
+                console.log(this.posts);
                 localStorage.setItem('posts', JSON.stringify(this.posts));
             } catch (error) {
                 console.log(error);
@@ -73,6 +71,7 @@ export default class DashboardCtrl {
 
     async ShowPosts(allPosts) {
         let posts = [];
+        console.log(allPosts);
         allPosts = allPosts.reverse();
         allPosts = allPosts.slice(0, 9);
         // console.log(allPosts);
@@ -143,7 +142,7 @@ export default class DashboardCtrl {
         // console.log(this.shownPosts);
         
         this.posts = JSON.parse(window.localStorage.getItem('posts'));
-        let postsShown = this.posts.reverse();
+        // let postsShown = this.posts.reverse();
         postsShown = postsShown.slice(0, 9);
         // console.log(this.posts);
         // console.log(post);

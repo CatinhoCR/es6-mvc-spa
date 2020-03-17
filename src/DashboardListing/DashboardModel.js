@@ -6,20 +6,13 @@ export default class PostsModel {
     }
     init() {
 
-        return fetch('https://jsonplaceholder.typicode.com/posts/' + id)
-            .then(
-                response => response.json(),
-                error => error)
-            .then(function (post) {
-                return post;
-            });
     }
     GetPosts() {
         var posts = fetch('https://jsonplaceholder.typicode.com/posts', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
+                // 'Access-Control-Allow-Origin': '*'
             },
         })
             .then(
@@ -39,7 +32,8 @@ export default class PostsModel {
         var deletedPost = fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                // 'Access-Control-Allow-Origin': '*'
             }
         })
             .then(
@@ -53,36 +47,6 @@ export default class PostsModel {
             });
         return deletedPost;
     }
-
-    /*
-    Commented block, API post requests are not available
-    EditPost(id, body) {
-        var editPost = fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                id: id,
-                title: 'foo',
-                body: 'bar',
-                userId: 1
-            })
-        })
-            .then((res) => {
-                // console.log(res);
-                return res;
-            })
-            .then((json) => {
-                // console.log(json);
-                return json;
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        return editPost;
-
-    }*/
 
     CreatePost(content) {
         /*
@@ -102,7 +66,7 @@ export default class PostsModel {
             }),
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
-                'Access-Control-Allow-Origin': '*'
+                // 'Access-Control-Allow-Origin': '*'
             },
         })
         .then(
@@ -111,7 +75,7 @@ export default class PostsModel {
         .then((newPost) => {
             return  newPost;
         })
-        .catch((err) => {
+        .catch((error) => {
             console.log(error);
         });
 
@@ -119,28 +83,7 @@ export default class PostsModel {
         return newPost;
     }
 
-    GetSinglePost() {
-
-    }
     /*
-    GetSinglePost(postId) {
-        let selectedPost = fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then( (res) => {
-            return res.json();
-        })
-        .then( (json) => {
-            return json
-        })
-        .catch ((err) => {
-            console.log(err);
-        })
-        return selectedPost;
-    }
     setDate(month, year) {
         // this.now.month(month).year(year);
     }
