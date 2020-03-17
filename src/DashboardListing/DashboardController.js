@@ -2,7 +2,6 @@
 
 import PostsModel from './DashboardModel';
 import DashboardView from './DashboardView';
-
 export default class DashboardCtrl {
 
     constructor() {
@@ -22,25 +21,7 @@ export default class DashboardCtrl {
         // 
     }
 
-    /*
-    async setupView() {
-        // Here we create local reference to DOM container and an initial global post object
-        this.container = document.getElementById('page-container');
-        this.posts = JSON.parse(window.localStorage.getItem('posts'));
-        this.shownPosts = [];
-
-        // Here we should show initial posts
-        await this.GetPosts();
-        // console.log(this.posts);
-        await this.ShowPosts(this.posts);
-        
-        await this.after_setup();
-    }
-    */
-
     async after_setup() {
-        // Here we get event listeners for create/delete post buttons and update view
-        
         this.deletePostBtns = document.querySelectorAll('.delete-post');
         this.deletePostBtns.forEach((btn, index) => {
             btn.addEventListener('click', () => {
@@ -51,14 +32,12 @@ export default class DashboardCtrl {
     }
 
     async GetPosts() {
-        // Here
-
         if (!this.posts || this.posts === null) {
             console.log("Fetch posts from DB");
             try {
                 let posts = await this.model.GetPosts();
                 this.posts = posts;
-                console.log(this.posts);
+                // console.log(this.posts);
                 localStorage.setItem('posts', JSON.stringify(this.posts));
             } catch (error) {
                 console.log(error);
@@ -71,7 +50,7 @@ export default class DashboardCtrl {
 
     async ShowPosts(allPosts) {
         let posts = [];
-        console.log(allPosts);
+        // console.log(allPosts);
         allPosts = allPosts.reverse();
         allPosts = allPosts.slice(0, 9);
         // console.log(allPosts);
@@ -82,12 +61,6 @@ export default class DashboardCtrl {
         
         this.shownPosts = allPosts;
         return this.container.innerHTML = posts.join('');
-        
-        // console.log(this.shownPosts);
-        // return this.shownPosts;
-        // console.log(allPosts);
-        
-        // Write to global var the list of shown posts. So that update view can get it and act accordingly.
     }
 
     async UpdateView(allPosts) {
@@ -138,38 +111,26 @@ export default class DashboardCtrl {
     */
 
     async SavePost(post) {
-        // *** TODO: Validate post to create has data.
-        // console.log(this.shownPosts);
-        
         this.posts = JSON.parse(window.localStorage.getItem('posts'));
-        // let postsShown = this.posts.reverse();
-        postsShown = postsShown.slice(0, 9);
+        console.log(this.posts);
+        let postsShown = this.posts.reverse();
+        postsShown = this.posts.slice(0, 9);
+        console.log(postsShown);
         // console.log(this.posts);
         // console.log(post);
         this.container = document.getElementById('page-container');
         try {
             let postCreated = await this.model.CreatePost(post);
-            
             // console.log(postCreated);
-            postsShown.push(postCreated);
+            postsShown.unshift(postCreated);
             console.log(postsShown);
-            // this.container.prepend()
-            // console.log(this.posts);
-            // UPdate view
-            // this.UpdateView(postCreated, this.posts);
-            // return postCreated;
+            await this.UpdateView(postsShown);
         } catch (error) {
             console.log(error);
         }
     }
 
     async RemovePost(post) {
-        // *** TODO: Remove posts is only running once. Figure this out. Might want to get LS object of shown posts
-        // await this.after_setup();
-        // console.log(this.posts);
-        // console.log(this.shownPosts);
-        // console.log(post);
-
         let postDelete;
         try {
             postDelete = await this.model.DeletePost(post);
@@ -177,11 +138,8 @@ export default class DashboardCtrl {
             this.shownPosts.splice(post, 1);
             console.log(this.shownPosts);
             await this.UpdateView(this.shownPosts);
-            // await this.UpdateView(this.shownPosts);
-            // Update View to reflect new shown posts
         } catch (error) {
             console.log(error);
         }
-        
     }
 }

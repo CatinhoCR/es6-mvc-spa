@@ -32,6 +32,14 @@ export default class SinglePostModel {
 
     }
 
+    EditPostTitle() {
+
+    }
+
+    EditPostContent() {
+        
+    }
+
     /*
     Commented block, API post requests are not available
     EditPost(id, body) {

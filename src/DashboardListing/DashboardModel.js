@@ -1,8 +1,8 @@
-import moment from 'moment';
+import * as moment from 'moment';
 
 export default class PostsModel {
     constructor() {
-
+        // this.moment = moment();
     }
     init() {
 
@@ -83,9 +83,12 @@ export default class PostsModel {
         return newPost;
     }
 
-    /*
+    
     setDate(month, year) {
         // this.now.month(month).year(year);
+        
+       //  let now = moment().format('MM.DD.YYYY');
+        // return now;
     }
-    */
+    
 }
