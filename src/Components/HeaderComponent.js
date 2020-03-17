@@ -1,5 +1,6 @@
 "use strict";
 
+import Utils from './../helpers/Utilities';
 import DashboardCtrl from './../DashboardListing/DashboardController';
 export default class HeaderComponent {
     constructor() {
@@ -11,7 +12,15 @@ export default class HeaderComponent {
         // this.header.innerHTML = await this.template();
         // await this.getTemplate();
         // await this.after_render();
-
+        // Get requested resource from URL
+        this.brandTitle = "Newstuff";
+        let request = Utils.parseRequestURL();
+        // console.log(request.id);
+        if (!request.id) {
+            this.navClass = 'show';
+        } else {
+            this.navClass = 'hide';
+        }
         return await this.template();
     }
 
@@ -126,7 +135,7 @@ export default class HeaderComponent {
                 <div class="container">
                     <div class="navbar-brand">
                         <a class="" href="/#/">
-                            <h1>Sample babel boilerplate for testing stuff</h1>
+                            <h1>${this.brandTitle}</h1>
                         </a>
 
                         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -136,7 +145,7 @@ export default class HeaderComponent {
                         </a>
                     </div>
 
-                    <div id="navbarBasicExample" class="navbar-menu is-active" aria-expanded="false">
+                    <div id="navbarBasicExample" class="navbar-menu ${this.navClass}" aria-expanded="false">
                         <div class="">
                             <a class="navbar-item" href="/#/">
                                 Home

@@ -15,6 +15,9 @@
         }
 
         .navbar-menu {
+            &.hide {
+                display: none;
+            }
             align-self: flex-end;
             .navbar-item {
                 margin-right: rem(20);
