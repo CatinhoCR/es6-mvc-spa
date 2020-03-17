@@ -20,7 +20,23 @@ export default class SinglePostCtrl {
     }
 
     async after_setup() {
-
+        this.editTitleBtn = document.getElementById('edit-post-title');
+        this.editTitleBtn.addEventListener('click', event => {
+            this.EditPostTitle();
+            // this only toggles form show/hide and clear form values.
+            
+        });
+        this.editTitleBtn = document.getElementById('save-edit-title');
+        this.editTitleBtn.addEventListener('click', event => {
+            console.log(event);
+        });
+        /*
+        this.deletePostBtns.forEach((btn, index) => {
+            btn.addEventListener('click', () => {
+                // console.log(index);
+                this.RemovePost(index);
+            });
+        });*/
     }
 
     async GetPostContent() {
@@ -60,6 +76,37 @@ export default class SinglePostCtrl {
         let thisPost = this.view.template(post);
         return this.container.innerHTML = thisPost;
         
+    }
+
+    async EditPostTitle() {
+        // Crear input con el valor del titulo actual
+        this.titleText = document.getElementById('post-title');
+        this.titleForm = document.getElementById('post-title-form');
+        // Toggler
+        if (this.titleText.classList.contains('is-visible')) {
+            this.titleText.classList.remove('is-visible');
+            this.titleForm.classList.add('is-visible');
+            // hide(content);
+            // return;
+        } else {
+            this.titleText.classList.add('is-visible');
+            this.titleForm.classList.remove('is-visible');
+        }
+        // show(content);
+        // Capturar el save
+        // Validar que no este vacio
+        // SI : guardar. esconder input y mostrar titulo nuevo, y API PATCH Request
+        // NO : errorbundleRenderer.renderToStream
+
+    }
+
+    async EditPostBody() {
+        // Crear input con el valor del titulo actual
+        // Capturar el save
+        // Validar que no este vacio
+        // SI : guardar. esconder input y mostrar titulo nuevo, y API PATCH Request
+        // NO : errorbundleRenderer.renderToStream
+
     }
     
 }

@@ -35,4 +35,45 @@
             }
         }
     }
+    &.post-details {
+        max-width: rem(720);
+        width: 100%;
+        margin: 0 auto;
+        .post-title-edit, .post-title {
+            display: none;
+            &.is-visible {
+                display: block;
+            }
+        }
+        h1 {
+            @include font-size(38);
+            &:first-letter {
+                text-transform: uppercase;
+            }
+        }
+        input {
+            width: 100%;
+            background-color: transparent;
+            color: #fff;
+            border: none;
+            @include font-size(38);
+            font-weight: 700;
+            &:first-letter {
+                text-transform: uppercase;
+            }
+        }
+        .article-content {
+            margin-top: rem(60);
+            p {
+                @include font-size(16);
+                letter-spacing: .8px;
+                line-height: 1.4;
+                text-align: justify;
+                
+                &:first-letter {
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
 }
