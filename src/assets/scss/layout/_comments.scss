@@ -3,5 +3,55 @@
         max-width: rem(720);
         width: 100%;
         margin: 0 auto;
+        .comments-container {
+            margin-bottom: rem(60);
+        }
+    }
+}
+
+.single-comment {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    margin-bottom: rem(20);
+    align-items: flex-start;
+
+    .edit-btn {
+        position: absolute;
+        left: 105%;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-top: 0;
+    }
+
+    .author-photo {
+        width: rem(60);
+
+        @include bp-md {
+            width: rem(100);
+        }
+
+        span {
+            width: 100%;
+            height: rem(60);
+            background-color: $main-color;
+            border-radius: 50%;
+            display: block;
+            @include bp-md {
+                height: rem(100);
+            }
+        }
+    }
+
+    .content-comment {
+        max-width: calc(100% - 80px);
+        margin-left: rem(20);
+        @include bp-md {
+            max-width: calc(100% - 120px);
+            margin-left: rem(20);
+        }
+        h4 {
+            margin: 0 0 rem(10);
+        }
     }
 }

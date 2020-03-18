@@ -60,8 +60,10 @@ export default class SinglePostView {
                 </button>
             </div>
         </article>
-        <section class="comments-section article col" id="comments-container">
-
+        <section class="comments-section article col" id="">
+            <h3>Comments</h3>
+            <div id="comments-container" class="comments-container"></div>
+            <div id="new-comment-form"></div>
         </section>
         `;
         return article;

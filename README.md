@@ -22,6 +22,11 @@ live-server --host=127.0.0.1 --port=8000
 npm run build
 ```
 
+## Notes To Self
+
+There are several things to do. I've tried keeping code as clean and clear as possible, but still need to optimize this, document code properly, improve a lot of stuff and implement some new cool things to build a nice reusable Vanilla ES6 FrontEnd MVC Boilerplate. This Boilerplate is the new goal of this repository. Just for fun and practice.
+Look for `// *** TODO:` for comments on things still to do, improve or implement throughout the JS files.
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 

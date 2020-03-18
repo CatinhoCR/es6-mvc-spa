@@ -1,5 +1,5 @@
 .main-site-header {
-    margin-bottom: rem(60);
+    margin-bottom: rem(40);
     .main-nav {
         .container {
             display: flex;
@@ -22,39 +22,6 @@
             .navbar-item {
                 margin-right: rem(20);
             }
-        }
-    }
-    form.add-post {
-        width: 100%;
-        max-width: rem(500);
-        margin: 0 auto;
-        text-align: center;
-        h2 {
-            margin-bottom: rem(20);
-        }
-        input, textarea {
-            display: block;
-            width: 100%;
-            padding: rem(8) rem(12);
-            @include font-size(16);
-            line-height: 1.5;
-            color: #495057;
-            background-color: #fff;
-            background-clip: padding-box;
-            border: 1px solid #ced4da;
-            border-radius: .25rem;
-            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-            margin-bottom: rem(20);
-            &:focus {
-                color: #495057;
-                background-color: #fff;
-                border-color: #80bdff;
-                outline: 0;
-                box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
-            }
-        }
-        button {
-
         }
     }
 }

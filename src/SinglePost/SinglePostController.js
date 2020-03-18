@@ -26,7 +26,32 @@ export default class SinglePostCtrl {
         // this.commentSection = document.getElementById('comments-container');
         // this.commentSection.innerHTML = await this.comments.setupView();
         await this.comments.setupView();
-        // await this.comments.after_setup();
+        await this.comments.after_setup();
+
+        // *** TODO: This should be moved to the toggle component itself, creating buttons there somehow catching events with classes not IDs and be reusable...
+        this.createCommentForm = document.getElementById('add-comment-post');
+        this.createCommentForm.addEventListener('click', event => {
+            // console.log("A");
+            // this.EditPostTitle(event.target);
+            this.toggleComponent.toggleContent(event.target);
+            // this only toggles form show/hide and clear form values.
+            
+        });
+        this.cancelCommentForm = document.getElementById('cancel-comment-form');
+        this.cancelCommentForm.addEventListener('click', event => {
+            // console.log("A");
+            // this.EditPostTitle(event.target);
+            this.toggleComponent.toggleContent(event.target);
+            // this only toggles form show/hide and clear form values.
+            
+        });
+        this.saveCommentBtn = document.getElementById('save-comment');
+        this.saveCommentBtn.addEventListener('click', event => {
+            event.preventDefault();
+            // console.log(event);
+            // this.toggleComponent.toggleContent(event.target);
+            this.validateSubmitComment(event.target);
+        });
 
         // *** TODO: Make this modular...
         // Option 1: This would be a for each, with a querySelectorAll from another attr, NOT id. To follow DRY principles... no time now. Fix.
@@ -63,8 +88,6 @@ export default class SinglePostCtrl {
             this.SaveEditField(0);
 
         });
-        
-        
 
     }
 
@@ -112,9 +135,7 @@ export default class SinglePostCtrl {
     async SaveEditField(type) {
         // *** TODO: Keep this DRY, rushing this atm.
         let request = Utils.parseRequestURL();
-        // console.log(request.id);
 
-        // Type 1 would be title here, type 2 would be content. Could be optimized, no time RN.
         if( type === 1) {
             // console.log("title");
             try {
@@ -141,79 +162,44 @@ export default class SinglePostCtrl {
         }
     }
 
-    /*
 
+    async validateSubmitComment(target) {
+        // This should get data, then validate it. 
+        // If OK, format it, get current date and send to controller for saving. If not print errors.
+        // console.log(target);
+        this.author = document.getElementById('comment-author').value;
+        this.content = document.getElementById('comment-content').value;
 
-    async saveNewTitle() {
-        // *** TODO: Keep this DRY, rushing this atm.
-        let request = Utils.parseRequestURL();
-        // console.log(request.id);
-        this.newText = document.getElementById('new-title').value;
-        let newPost = await this.model.EditPostTitle(request.id, this.newText);
-        // console.log(newPost);
-        await this.EditPostTitle();
+        // Validate Data
+        this.errorsContainer = document.getElementById('show-error-comment');
+        this.errorsContainer.innerHTML = '';
         
-        // await this.ShowPostContent(newPost);
-        
-        // this.titleText.classList.add('is-visible');
-        // this.titleForm.classList.remove('is-visible');
-    }
-
-    async EditPostContent(target) {
-
-        // Crear input con el valor del titulo actual
-        this.contentText = document.getElementById('content');
-        this.contentForm = document.getElementById('edit-content-form');
-        this.editInput = document.getElementById('new-content');
-        // Toggler
-        if (this.contentText.classList.contains('is-visible')) {
-            // console.log("A");
-            target.innerHTML = 'Cancel';
-            this.contentText.classList.remove('is-visible');
-            this.contentForm.classList.add('is-visible');
-            this.editInput.focus();
-            // hide(content);
-            // return;
+        if (this.author === '' || this.content === '') {
+            
+            var error;
+            error = document.createElement('p');
+            error.setAttribute('class', 'main-color');
+            if ( this.author != '' ) {
+                error.innerHTML = 'Please add CONTENT to your new post.';
+            } else if ( this.content != '' ) {
+                error.innerHTML = 'Please add an AUTHOR to your new post.';
+            } else {
+                error.innerHTML = 'Please add a USER and CONTENT to your new post.';
+            }
+            console.log(this.errorsContainer);
+            this.errorsContainer.append(error);
         } else {
-            // console.log("b");
-            
-            target.innerHTML = 'Edit';
-            this.contentText.classList.add('is-visible');
-            this.contentForm.classList.remove('is-visible');
-            
+            let comment = {
+                email: this.author,
+                body: this.content
+            }
+            let request = Utils.parseRequestURL();
+            var saveComment = await this.comments.SaveNewComment(request.id, comment);
+            // console.log(saveComment);
+            this.toggleComponent.toggleContent(target);
+            document.getElementById('comment-author').value = '';
+            document.getElementById('comment-content').value = '';
         }
-        // show(content);
-        // Capturar el save
-        // Validar que no este vacio
-        // SI : guardar. esconder input y mostrar titulo nuevo, y API PATCH Request
-        // NO : errorbundleRenderer.renderToStream
-
-    }
-
-    async saveNewContent() {
-        // Crear input con el valor del titulo actual
-        // Capturar el save
-        // Validar que no este vacio
-        // SI : guardar. esconder input y mostrar titulo nuevo, y API PATCH Request
-        // NO : errorbundleRenderer.renderToStream
-        // *** TODO: Keep this DRY, rushing this atm.
-        let request = Utils.parseRequestURL();
-        // console.log(request.id);
-        this.newText = document.getElementById('new-content').value;
-        let newPost = await this.model.EditPostContent(request.id, this.newText);
-        // console.log(newPost);
-        await this.EditPostContent();
-        
-        // await this.ShowPostContent(newPost);
-
-        // this.titleText.classList.add('is-visible');
-        // this.titleForm.classList.remove('is-visible');
-
-    }
-    */
-
-    async UpdateView() {
-
     }
     
 }

@@ -58,7 +58,6 @@ export default class DashboardCtrl {
             let thisPost = this.view.template(post, index);
             posts.push(thisPost);
         });
-        
         this.shownPosts = allPosts;
         return this.container.innerHTML = posts.join('');
     }
@@ -66,9 +65,6 @@ export default class DashboardCtrl {
     async UpdateView(allPosts) {
         this.container.innerHTML = '';
         let posts = [];
-        // allPosts = allPosts.reverse();
-        // allPosts = allPosts.slice(0, 9);
-        // console.log(allPosts);
         this.container.innerHTML = allPosts.forEach( (post, index) => {
             let thisPost = this.view.template(post, index);
             posts.push(thisPost);
@@ -84,35 +80,11 @@ export default class DashboardCtrl {
             });
         });
         // console.log(allPosts);
-        
-        // Write to global var the list of shown posts. So that update view can get it and act accordingly.
     }
-
-    /*
-    async UpdateView(postsToShow) {
-        // Get list of shown posts.
-        // Determine if action is to create ot delete
-        this.container.innerHTML = '';
-        // this.deletePostBtns = [];
-        let posts = [];
-        // console.log(postsToShow);
-        this.shownPosts = postsToShow;
-        // console.log(this.shownPosts);
-        
-        
-        this.container.innerHTML = postsToShow.forEach( (post, index) => {
-            let thisPost = this.view.template(post, index);
-            posts.push(thisPost);
-        });
-        this.container.innerHTML = posts.join('');
-        // this.deletePostBtns = document.querySelectorAll('.delete-post');
-        
-    }
-    */
 
     async SavePost(post) {
         this.posts = JSON.parse(window.localStorage.getItem('posts'));
-        console.log(this.posts);
+        // console.log(this.posts);
         let postsShown = this.posts.reverse();
         postsShown = this.posts.slice(0, 9);
         console.log(postsShown);
@@ -123,7 +95,7 @@ export default class DashboardCtrl {
             let postCreated = await this.model.CreatePost(post);
             // console.log(postCreated);
             postsShown.unshift(postCreated);
-            console.log(postsShown);
+            // console.log(postsShown);
             await this.UpdateView(postsShown);
         } catch (error) {
             console.log(error);
@@ -136,7 +108,7 @@ export default class DashboardCtrl {
             postDelete = await this.model.DeletePost(post);
             // console.log(postDelete);
             this.shownPosts.splice(post, 1);
-            console.log(this.shownPosts);
+            // console.log(this.shownPosts);
             await this.UpdateView(this.shownPosts);
         } catch (error) {
             console.log(error);

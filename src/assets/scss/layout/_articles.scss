@@ -37,6 +37,9 @@
     }
     &.post-details {
         width: 100%;
+        margin-bottom: rem(60);
+        padding: rem(10) rem(20) rem(0);
+        
         // .post-title-edit, .post-title, .post-content, .post-content-edit {
         //     display: none;
         //     &.is-visible {
@@ -53,8 +56,8 @@
             .edit-btn {
                 position: absolute;
                 left: 105%;
-                top: 50%;
-                transform: translateY(-50%);
+                top: 40%;
+                // transform: translateY(-50%);
                 margin-top: 0;
             }
         }
@@ -78,6 +81,8 @@
         }
         .article-content {
             margin-top: rem(60);
+            border-bottom: 1px solid #fff;
+            padding-bottom: rem(60);
             p {
                 @include font-size(16);
                 letter-spacing: .8px;

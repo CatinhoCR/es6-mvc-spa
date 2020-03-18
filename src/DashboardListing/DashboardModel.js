@@ -49,14 +49,6 @@ export default class PostsModel {
     }
 
     CreatePost(content) {
-        /*
-        let newPost = content;
-        let ePosts = JSON.parse(window.localStorage.getItem('posts'));
-        ePosts.push(newPost);
-        window.localStorage.setItem('posts', JSON.stringify(newPost));
-        */
-
-        // Commented block, API post requests are not available
         var newPost = fetch(`https://jsonplaceholder.typicode.com/posts`, {
             method: 'POST',
             body: JSON.stringify({
@@ -78,8 +70,6 @@ export default class PostsModel {
         .catch((error) => {
             console.log(error);
         });
-
-
         return newPost;
     }
 

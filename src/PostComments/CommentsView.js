@@ -2,17 +2,13 @@ export default class CommentsView {
     template(comment, index) {
         let singleComment = /*html*/`
             <div>
-                <!-- <h3>Comments</h3> -->
                 <!-- Comment in loop start -->
                 <div class="single-comment">
-                    <div>
-                        <div class="author-photo">
-                            <!-- simulate whatever -->
-                            <span>circle</span>
-                        </div>
+                    <div class="author-photo">
+                        <span></span>
                     </div>
-                    <div>
-                        <h4>${comment.name}</h4>
+                    <div class="content-comment">
+                        <h4>${comment.email}</h4>
                         <p>${comment.body}</p>
                     </div>
                     <button class="edit-btn transparent-btn btn" id="edit-comment">
@@ -20,33 +16,41 @@ export default class CommentsView {
                     </button>
                 </div>
                 <!-- Comment in loop end -->
-                <!-- form, get index and create specific data target and id based on that  $ { comment.index } -->
-                <form class="toggle-content" id="create-post-form">
-                    <div>
-                        <label for="comment-username">Username:</label>
-                        <input type="text" placeholder="John Doe" id="comment-author" name="comment-username">
-                    </div>
-                    <div>
-                        <label for="comment-text">Comment:</label>
-                        <textarea name="comment-text" id="comment-content" rows="5"></textarea>
-                    </div>
-                    <div>
-                        <button class="" id="" type="submit">
-                            Submit
-                        </button>
-                        <button class="" id="" type="button">
-                            Cancel
-                        </button>
-                    </div>
-                </form>
-                <!-- 
-                This needs to be outside repeater template, just like the title for the section.
-                <button class="btn" id="add-comment-post" type="button" data-target="create-post-form">
-                    Add Comment
-                </button> -->
-                <!-- add comment button/form -->
+
             </div>
         `;
         return singleComment;
+    }
+    createCommentForm() {
+        let newCommentForm = /*html*/`
+            <button class="btn is-visible toggle-content" id="add-comment-post" type="button" data-target="create-comment-form" data-panel-header="add-comment-post">
+                Add Comment
+            </button>
+            <form class="toggle-content form add-comment" id="create-comment-form">
+                <div>
+                    <label for="comment-username">Username:</label>
+                    <input type="text" placeholder="JohnDoe@email.com" id="comment-author" name="comment-username">
+                </div>
+                <div>
+                    <label for="comment-text">Comment:</label>
+                    <textarea name="comment-text" id="comment-content" rows="5"></textarea>
+                </div>
+                <div id="show-error-comment">
+                </div>
+                <div>
+                    <button class="edit-btn btn " id="cancel-comment-form" type="button" data-target="create-comment-form" data-panel-header="add-comment-post">
+                        Cancel
+                    </button>
+                    <button class="btn" id="save-comment" type="submit" data-target="create-comment-form" data-panel-header="add-comment-post">
+                        Submit
+                    </button>
+                </div>
+            </form>
+        `;
+        return newCommentForm;
+    }
+
+    async after_render() {
+        
     }
 }

@@ -5,7 +5,7 @@ export default class ToggleComponent {
     }
     async toggleContent(elem) {
         // This should be moved to a reusable file, an importable and reusable component to create toggles?
-        console.log(elem);
+        // console.log(elem);
         // console.log(elem.dataset.target)
         // this.originalText = elem.innerHTML;
         // this.cancelText = 'Cancel';
@@ -58,7 +58,7 @@ export default class ToggleComponent {
             // console.log("Hide");
             // content.classList.remove('is-visible');
         }
-
+        // console.log(content);
         // Toggler
         if (content.classList.contains('is-visible')) {
             hide(content);

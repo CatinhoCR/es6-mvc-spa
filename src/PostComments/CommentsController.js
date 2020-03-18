@@ -12,26 +12,17 @@ export default class SinglePostCtrl {
     }
     
     async setupView() {
-        // this.section = document.getElementById('comments-container');
-        // this.section.innerHTML = await this.GetPostComments();
-//         return this.GetPostComments();
         this.commentSection = document.getElementById('comments-container');
-        // this.commentSection.innerHTML = await this.comments.setupView();
-        this.comments = JSON.parse(window.localStorage.getItem('postComments'));
+        this.comments = JSON.parse(window.localStorage.getItem('comments'));
         await this.GetPostComments();
         this.show = await this.ShowPostComments(this.comments);
         return this.show;
-        // console.log(this.comments);
-
-        // await this.GetPostComments();
-        // this.allComments = await this.GetPostComments();
-        // return this.allComments;
-        // this.comments = await this.ShowPostComments(this.postComments);
-        // return this.comments;
     }
 
     async after_setup() {
-
+        this.newCommentForm = document.getElementById('new-comment-form');
+        let form = await this.view.createCommentForm();
+        return this.newCommentForm.innerHTML = form;
     }
 
     async GetPostComments() {
@@ -39,6 +30,7 @@ export default class SinglePostCtrl {
         if (!this.comments || this.comments === null) {
             try {
                 let postComments = await this.model.GetPostComments(request.id);
+                // this.comments = postComments.reverse();
                 this.comments = postComments;
                 localStorage.setItem('comments', JSON.stringify(this.comments));
                 // console.log(postComments);
@@ -52,52 +44,38 @@ export default class SinglePostCtrl {
     }
 
     async ShowPostComments(postComments) {
-        console.log(postComments)
+        // console.log(postComments)
         let allComments = [];
-        postComments = postComments.reverse();
+        // postComments = postComments.reverse();
         postComments.forEach( (comment, index) => {
             let thisComment = this.view.template(comment, index);
             allComments.push(thisComment);
         });
         return this.commentSection.innerHTML = allComments.join('');
-        // console.log(allComments);
-        // this.comments = allComments.join('');
-        // console.log(allComments);
-        // return this.commentSection.innerHTML = allComments.join('');
-        // return  allComments.join('');
-        // return this.container.innerHTML = allComments.join('');
     }
 
-    /*
-    async ShowPostComments(comments) {
-        let allComments = [];
-        allComments = comments.reverse();
-        console.log(allComments);
-        this.container.innerHTML = allComments.forEach( (comment, index) => {
-            let thisComment = this.view.template(comment, index);
-            allComments.push(thisComment);
-        });
-        return this.container.innerHTML = allComments.join('');
+    async UpdateComments(comment) {
+        // console.log(comment);
+        // this.comments = JSON.parse(window.localStorage.getItem('comments'));
+        this.comments = JSON.parse(window.localStorage.getItem('comments'));
+        // console.log(this.comments);
+        let postComments = this.comments;
+        // let postComments = this.comments.reverse();
+        postComments.push(comment);
+        // console.log(postComments);
+        localStorage.setItem('comments', JSON.stringify(postComments));
+        return await this.ShowPostComments(postComments);
+    }
 
-        /*
-        let commentsThis = 
-        
-        return this.container.innerHTML = commentsThis;
-
-
-        let posts = [];
-        // console.log(allPosts);
-        allPosts = allPosts.reverse();
-        allPosts = allPosts.slice(0, 9);
-        // console.log(allPosts);
-        this.container.innerHTML = allPosts.forEach( (post, index) => {
-            let thisPost = this.view.template(post, index);
-            posts.push(thisPost);
-        });
-        
-        this.shownPosts = allPosts;
-        return this.container.innerHTML = posts.join('');
-        * /
-    }*/
+    async SaveNewComment(id, comment) {
+        // console.log(comment);
+        try {
+            let commentCreated = await this.model.SavePostComment(id, comment);
+            // return commentCreated;
+            await this.UpdateComments(commentCreated);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 }
