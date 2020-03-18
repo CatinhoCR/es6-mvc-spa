@@ -23,9 +23,10 @@ export default class SinglePostCtrl {
     }
 
     async after_setup() {
-        this.commentSection = document.getElementById('comments-container');
-        this.commentSection.innerHTML = await this.comments.setupView();
-        await this.comments.after_setup();
+        // this.commentSection = document.getElementById('comments-container');
+        // this.commentSection.innerHTML = await this.comments.setupView();
+        await this.comments.setupView();
+        // await this.comments.after_setup();
 
         // *** TODO: Make this modular...
         // Option 1: This would be a for each, with a querySelectorAll from another attr, NOT id. To follow DRY principles... no time now. Fix.

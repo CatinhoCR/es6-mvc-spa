@@ -34,7 +34,7 @@ export default class SinglePostView {
     template(post) {
         let article;
         article = /*html*/`
-        <article class="article post-details">
+        <article class="article post-details col">
             <div class="article-header">
                 <span class="category">News</span>
                 <h1 class="post-title is-visible toggle-content" id="title">${post.title}</h1>
@@ -60,7 +60,7 @@ export default class SinglePostView {
                 </button>
             </div>
         </article>
-        <section class="comments-section" id="comments-container">
+        <section class="comments-section article col" id="comments-container">
 
         </section>
         `;

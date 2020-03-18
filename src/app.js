@@ -58,15 +58,6 @@ class App {
         let page = this.routes[parsedURL] ? this.routes[parsedURL] : this.Error404;
         this.content.innerHTML = await page.setupView();
         await page.after_setup();
-
-    /*
-        THIS IS THE MAIN PART TO LOOK INTO, SO THAT "RENDER" FUNCTION FROM EACH CONTROLLER RETURNS WHAT IS EXPECTED...
-
-        
-        let page = routes[parsedURL] ? routes[parsedURL] : Error404
-        content.innerHTML = await page.render();
-        await page.after_render();
-    */
     }
 }
 

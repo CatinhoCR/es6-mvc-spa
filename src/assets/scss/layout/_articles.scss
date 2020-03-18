@@ -36,19 +36,19 @@
         }
     }
     &.post-details {
-        max-width: rem(720);
         width: 100%;
-        margin: 0 auto;
-        .post-title-edit, .post-title, .post-content, .post-content-edit {
-            display: none;
-            &.is-visible {
-                display: block;
-            }
-        }
+        // .post-title-edit, .post-title, .post-content, .post-content-edit {
+        //     display: none;
+        //     &.is-visible {
+        //         display: block;
+        //     }
+        // }
         .btn {
             margin: rem(10) 0 rem(20);
         }
         .article-header, .article-content {
+            max-width: rem(720);
+            margin: 0 auto;
             position: relative;
             .edit-btn {
                 position: absolute;

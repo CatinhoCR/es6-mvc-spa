@@ -1,25 +1,27 @@
 export default class CommentsView {
-    template() {
-        let comment = /*html*/`
-            
-                <h3>Comments</h3>
+    template(comment, index) {
+        let singleComment = /*html*/`
+            <div>
+                <!-- <h3>Comments</h3> -->
                 <!-- Comment in loop start -->
                 <div class="single-comment">
                     <div>
                         <div class="author-photo">
                             <!-- simulate whatever -->
+                            <span>circle</span>
                         </div>
                     </div>
                     <div>
-                        <h4>Comment Author</h4>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure, expedita culpa reiciendis in voluptatem qui ullam sunt pariatur explicabo ut vitae iste exercitationem distinctio rem eos dicta dolores voluptas cupiditate?</p>
+                        <h4>${comment.name}</h4>
+                        <p>${comment.body}</p>
                     </div>
                     <button class="edit-btn transparent-btn btn" id="edit-comment">
                         Edit
                     </button>
                 </div>
                 <!-- Comment in loop end -->
-                <form class="" id="">
+                <!-- form, get index and create specific data target and id based on that  $ { comment.index } -->
+                <form class="toggle-content" id="create-post-form">
                     <div>
                         <label for="comment-username">Username:</label>
                         <input type="text" placeholder="John Doe" id="comment-author" name="comment-username">
@@ -37,12 +39,14 @@ export default class CommentsView {
                         </button>
                     </div>
                 </form>
-                <button class="" id="" type="button">
+                <!-- 
+                This needs to be outside repeater template, just like the title for the section.
+                <button class="btn" id="add-comment-post" type="button" data-target="create-post-form">
                     Add Comment
-                </button>
+                </button> -->
                 <!-- add comment button/form -->
-            
+            </div>
         `;
-        return comment;
+        return singleComment;
     }
 }

@@ -1,0 +1,7 @@
+.article {
+    &.comments-section.col {
+        max-width: rem(720);
+        width: 100%;
+        margin: 0 auto;
+    }
+}
