@@ -7,11 +7,32 @@ export default class CommentsView {
                     <div class="author-photo">
                         <span></span>
                     </div>
-                    <div class="content-comment">
+                    <div class="content-comment is-visible toggle-content" id="comment-content-${index}">
                         <h4>${comment.email}</h4>
-                        <p>${comment.body}</p>
+                        <p id="new-content-comment">${comment.body}</p>
                     </div>
-                    <button class="edit-btn transparent-btn btn" id="edit-comment">
+                    <form class="form post-comment-edit toggle-content" id="edit-comment-form-${index}">
+                        <div>
+                            <label for="commentEditEmail">Username:</label>
+                            <input type="email" id="comment-edit-email" name="commentEditEmail" value="${comment.email}">
+                        </div>
+                        <div>
+                            <label for="commentEditContent">Content:</label>
+                            <textarea name="commentEditContent" id="comment-edit-content" rows="10">
+                                ${comment.body}
+                            </textarea>
+                        </div>
+                        <div>
+                            <button type="button" class="btn comment-delete" data-target="edit-comment-form-${index}" data-panel-header="comment-content-${index}">
+                                Delete
+                            </button>
+                            <button type="submit" class="btn comment-edit-save" data-target="edit-comment-form-${index}" data-panel-header="comment-content-${index}">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                    <button class="comment-edit-btn edit-btn transparent-btn btn" id="edit-comment" data-target="edit-comment-form-${index}" data-panel-header="comment-content-${index}" >
+                    <!-- data-focus-area="new-content-comment" -->
                         Edit
                     </button>
                 </div>

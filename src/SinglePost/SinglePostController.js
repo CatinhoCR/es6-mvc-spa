@@ -28,6 +28,23 @@ export default class SinglePostCtrl {
         await this.comments.setupView();
         await this.comments.after_setup();
 
+        /*
+            *** TODO: Important note here...
+                This sucks bad... Tried implementing observer pattern and event listener interface but failed and barely have any free time to spend doing this 
+                -
+                Job sprints are heavy, traffic is heavier and gotta keep myself happy as well... 
+                An unhappy mind does miserable code. This is not the case here, but I really can't get enough free time RN.
+                
+                An interview would showcase my knowledge way better than this :)
+                 
+                Callback hell PLEASE don't don't come back.... Or did it?! 
+                I'm just wasting time now, might as well get some sleep to deliver some Vuelable code tomorrow. 
+                (Yes, Im doing Vue.js and delivering valuable code to clients..)
+                P.S: I know... That's why i'm a programmer, not a comedian.
+                -
+        */
+
+        /* Create New Comment Form Button - Start */
         // *** TODO: This should be moved to the toggle component itself, creating buttons there somehow catching events with classes not IDs and be reusable...
         this.createCommentForm = document.getElementById('add-comment-post');
         this.createCommentForm.addEventListener('click', event => {
@@ -52,12 +69,51 @@ export default class SinglePostCtrl {
             // this.toggleComponent.toggleContent(event.target);
             this.validateSubmitComment(event.target);
         });
+        /* Create New Comment Form Button - End */
 
+        /* Edit Comment Form Button - End */
+        this.editCommentForm = document.querySelectorAll('.comment-edit-btn');
+        this.editCommentForm.forEach((btn, index) => {
+            btn.addEventListener('click', (event) => {
+                console.log(index);
+                console.log(event);
+                this.toggleComponent.toggleContent(event.target);
+                // this.RemovePost(index);
+                console.log("El");
+            });
+        });
+
+        this.deleteComment = document.querySelectorAll('.comment-delete');
+        this.deleteComment.forEach((btn, index) => {
+            btn.addEventListener('click', (event) => {
+                console.log(index);
+                console.log(event);
+                this.toggleComponent.toggleContent(event.target);
+                // this.RemovePost(index);
+                console.log("Ss");
+                // this.SaveEditField(0);
+            });
+        });
+
+        this.saveEditComment = document.querySelectorAll('.comment-edit-save');
+        this.saveEditComment.forEach((btn, index) => {
+            btn.addEventListener('click', (event) => {
+                event.preventDefault();
+                console.log(index);
+                console.log(event);
+                this.toggleComponent.toggleContent(event.target);
+                // this.RemovePost(index);
+                console.log("Ss");
+                // this.SaveEditField(0);
+            });
+        });
+        /* Edit Comment Form Button - End */
+
+        /* Edit Post Title Button - Start */
         // *** TODO: Make this modular...
         // Option 1: This would be a for each, with a querySelectorAll from another attr, NOT id. To follow DRY principles... no time now. Fix.
         this.editTitleBtn = document.getElementById('edit-post-title');
         this.editTitleBtn.addEventListener('click', event => {
-            console.log("A");
             // this.EditPostTitle(event.target);
             this.toggleComponent.toggleContent(event.target);
             // this only toggles form show/hide and clear form values.
@@ -71,7 +127,9 @@ export default class SinglePostCtrl {
             this.SaveEditField(1);
 
         });
+        /* Edit Post Title Button - End */
         
+        /* Edit Post Content Button - Start */
         this.editContentBtn = document.getElementById('edit-post-content');
         this.editContentBtn.addEventListener('click', event => {
             console.log("B");
@@ -79,7 +137,6 @@ export default class SinglePostCtrl {
             // this only toggles form show/hide and clear form values.
             
         });
-        
         this.saveContentBtn = document.getElementById('save-edit-content');
         this.saveContentBtn.addEventListener('click', event => {
             event.preventDefault();
@@ -88,6 +145,7 @@ export default class SinglePostCtrl {
             this.SaveEditField(0);
 
         });
+        /* Edit Post Content Button - End */
 
     }
 
@@ -162,7 +220,6 @@ export default class SinglePostCtrl {
         }
     }
 
-
     async validateSubmitComment(target) {
         // This should get data, then validate it. 
         // If OK, format it, get current date and send to controller for saving. If not print errors.
@@ -200,6 +257,10 @@ export default class SinglePostCtrl {
             document.getElementById('comment-author').value = '';
             document.getElementById('comment-content').value = '';
         }
+    }
+
+    async EditPostComment() {
+
     }
     
 }
