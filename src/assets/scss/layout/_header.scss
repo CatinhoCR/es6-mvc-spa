@@ -1,5 +1,6 @@
 .main-site-header {
     margin-bottom: rem(40);
+
     .main-nav {
         .container {
             display: flex;
@@ -8,6 +9,7 @@
             justify-content: space-between;
             align-items: flex-end;
         }
+
         .navbar-brand {
             h1 {
                 margin: 0;
@@ -18,7 +20,9 @@
             &.hide {
                 display: none;
             }
+
             align-self: flex-end;
+
             .navbar-item {
                 margin-right: rem(20);
             }

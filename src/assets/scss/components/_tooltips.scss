@@ -1,0 +1,26 @@
+.tooltip {
+  display: none;
+
+  +a p,
+  +a .date {
+    display: block;
+    margin-bottom: rem(30);
+  }
+
+  &.show {
+    margin-top: rem(10);
+    width: 80%;
+    display: block;
+    position: absolute;
+    bottom: 6%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+
+    +a p,
+    +a .date {
+      display: none;
+    }
+  }
+
+}

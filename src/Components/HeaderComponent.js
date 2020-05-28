@@ -1,48 +1,51 @@
 "use strict";
 
-import Utils from './../helpers/Utilities';
-import DashboardCtrl from './../DashboardListing/DashboardController';
-import ToggleComponent from './../Components/ToggleComponent';
+import Utils from "./../helpers/Utilities";
+import DashboardCtrl from "./../DashboardListing/DashboardController";
+import ToggleComponent from "./ToggleComponent";
 export default class HeaderComponent {
-    constructor() {
-        this.PostsCtrl = new DashboardCtrl();
-        this.toggleComponent = new ToggleComponent();
-        // this.header = null || document.getElementById('header-container');
+  constructor() {
+    this.PostsCtrl = new DashboardCtrl();
+    this.toggleComponent = new ToggleComponent();
+    // this.header = null || document.getElementById('header-container');
+  }
+
+  async render() {
+    // this.header.innerHTML = await this.template();
+    // await this.getTemplate();
+    // await this.after_render();
+    // Get requested resource from URL
+    this.brandTitle = "Newstuff";
+    let request = Utils.parseRequestURL();
+    // console.log(request.id);
+    if (!request.id) {
+      this.navClass = "show";
+    } else {
+      this.navClass = "hide";
     }
+    return await this.template();
+  }
 
-    async render() {
-        // this.header.innerHTML = await this.template();
-        // await this.getTemplate();
-        // await this.after_render();
-        // Get requested resource from URL
-        this.brandTitle = "Newstuff";
-        let request = Utils.parseRequestURL();
-        // console.log(request.id);
-        if (!request.id) {
-            this.navClass = 'show';
-        } else {
-            this.navClass = 'hide';
-        }
-        return await this.template();
-    }
+  async after_render() {
+    this.createBtn = document.getElementById("add-post-btn");
+    this.createBtn.addEventListener("click", (event) => {
+      // this only toggles form show/hide and clear form values.
+      this.toggleComponent.toggleContent(event.target);
+    });
 
-    async after_render() {
+    this.saveBtn = document.getElementById("save-post-btn");
+    this.saveBtn.addEventListener(
+      "click",
+      async (event) => {
+        event.preventDefault();
+        // console.log(event);
+        this.newPostForm(event.target);
+      },
+      false
+    );
+  }
 
-        this.createBtn = document.getElementById('add-post-btn');
-        this.createBtn.addEventListener('click', event => {
-            // this only toggles form show/hide and clear form values.
-            this.toggleComponent.toggleContent(event.target);
-        });
-
-        this.saveBtn = document.getElementById('save-post-btn');
-        this.saveBtn.addEventListener('click', async (event) => {
-            event.preventDefault();
-            // console.log(event);
-            this.newPostForm(event.target);
-        }, false);
-    }
-
-    /*
+  /*
     async toggleContent(elem, time) {
         // This should be moved to a reusable file, an importable and reusable component to create toggles?
         // console.log(elem);
@@ -97,44 +100,44 @@ export default class HeaderComponent {
     }
     */
 
-    async newPostForm(target) {
-        // This should get data, then validate it. 
-        // If OK, format it, get current date and send to controller for saving. If not print errors.
-        var title = document.getElementById('post-title').value;
-        var body = document.getElementById('post-content').value;
+  async newPostForm(target) {
+    // This should get data, then validate it.
+    // If OK, format it, get current date and send to controller for saving. If not print errors.
+    var title = document.getElementById("post-title").value;
+    var body = document.getElementById("post-content").value;
 
-        // Validate Data
-        this.errorsContainer = document.getElementById('show-error');
-        this.errorsContainer.innerHTML = '';
-        if (title === '' || body === '') {
-            let error = document.createElement('p');
-            error.setAttribute('class', 'main-color');
-            error.innerHTML = '';
-            if (title === '' && body != '') {
-                error.innerHTML = 'Please add TITLE to your new post.';
-            } else if (body === '' && title != '') {
-                error.innerHTML = 'Please add a CONTENT to your new post.';
-            } else {
-                console.log("empty");
-                error.innerHTML = 'Please add a TITLE and CONTENT to your new post.';
-            }
-            this.errorsContainer.append(error);
-        } else {
-            let data = {
-                title: title,
-                body: body
-            }
+    // Validate Data
+    this.errorsContainer = document.getElementById("show-error");
+    this.errorsContainer.innerHTML = "";
+    if (title === "" || body === "") {
+      let error = document.createElement("p");
+      error.setAttribute("class", "main-color");
+      error.innerHTML = "";
+      if (title === "" && body != "") {
+        error.innerHTML = "Please add TITLE to your new post.";
+      } else if (body === "" && title != "") {
+        error.innerHTML = "Please add a CONTENT to your new post.";
+      } else {
+        console.log("empty");
+        error.innerHTML = "Please add a TITLE and CONTENT to your new post.";
+      }
+      this.errorsContainer.append(error);
+    } else {
+      let data = {
+        title: title,
+        body: body,
+      };
 
-            var savePost = await this.PostsCtrl.SavePost(data);
-            this.toggleComponent.toggleContent(target);
-            document.getElementById('post-title').value = '';
-            document.getElementById('post-content').value = '';
-        }
+      var savePost = await this.PostsCtrl.SavePost(data);
+      this.toggleComponent.toggleContent(target);
+      document.getElementById("post-title").value = "";
+      document.getElementById("post-content").value = "";
     }
+  }
 
-    async template() {
-        // this could be moved to a static HTML file that gets imported in the render function. Leaving as is for now.
-        const HeaderContent = /*html*/`
+  async template() {
+    // this could be moved to a static HTML file that gets imported in the render function. Leaving as is for now.
+    const HeaderContent = /*html*/ `
             <nav class="navbar main-nav" role="navigation" aria-label="main navigation">
                 <div class="container">
                     <div class="navbar-brand">
@@ -187,6 +190,6 @@ export default class HeaderComponent {
                 <button type="submit" class="btn third-btn" id="save-post-btn" data-target="create-post-form">Save</button>
             </form>
         `;
-        return HeaderContent;
-    }
+    return HeaderContent;
+  }
 }

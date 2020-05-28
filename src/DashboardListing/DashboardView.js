@@ -1,15 +1,13 @@
 export default class DashboardView {
-    constructor() {
-        
-    }
-    async render() {
-        // this.container.innerHTML = await this.postsList();
-        // console.log("A");
-        // ssawait this.template();
-    }
-    async after_render() {
-        // get buttons
-        /*
+  constructor() {}
+  async render() {
+    // this.container.innerHTML = await this.postsList();
+    // console.log("A");
+    // ssawait this.template();
+  }
+  async after_render() {
+    // get buttons
+    /*
         this.deletePostBtns = document.querySelectorAll('.delete-post');
         this.deletePostBtns.forEach((btn, index) => {
             btn.addEventListener('click', () => {
@@ -27,15 +25,18 @@ export default class DashboardView {
             });
         });
         */
-    }
-    async test() {
-
-    }
-    template(post, i) {
-        let article;
-        article = /*html*/`
+  }
+  async test() {}
+  template(post, i) {
+    let article;
+    article = /*html*/ `
             <div class="article list-item col col-4">
                 <button type="button" class="delete-post delete-btn btn" id="deleteIndex-${i}">X</button>
+                <div class="confirm-dialog tooltip">
+                    <h3>Are you sure you want to delete this post forever?</h3>
+                    <button class="btn btn-main" id="cancel_delete_${i}">Cancel</button>
+                    <button class="btn btn-main" id="confirm_delete_${i}">Delete</button>
+                </div>
                 <a href="/#/post/${post.id}" class="show-post" id="post-${post.id}">
                     <span class="category">News</span>
                     <h2>${post.title}</h2>
@@ -44,14 +45,11 @@ export default class DashboardView {
                 </a>
             </div>
         `;
-        return article;
-        
+    return article;
 
-
-        
-        // div.innerHTML += `<span >${JSON.stringify(postsPage[i])}</span>`;
-        // this.container.append(article);
-        /*
+    // div.innerHTML += `<span >${JSON.stringify(postsPage[i])}</span>`;
+    // this.container.append(article);
+    /*
         this.deletePostBtns = document.querySelectorAll('.delete-post');
         this.deletePostBtns.forEach((btn, index) => {
             btn.addEventListener('click', event => {
@@ -68,10 +66,6 @@ export default class DashboardView {
             
             });
         });*/
-        
-    }
-    async updatePosts() {
-
-    }
-
+  }
+  async updatePosts() {}
 }
