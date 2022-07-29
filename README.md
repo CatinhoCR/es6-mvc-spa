@@ -1,6 +1,8 @@
 # Vanilla ES6 MVC SPA Boilerplate
 
-A _similar and updated_ version of this can be found [in this repo](https://github.com/CatinhoCR/frontend-webpack-boilerplate)
+Outdated project, not to be used for anything other than reference... if anything.
+
+## A similar _and updated_ version of this can be found [in this other repository](https://github.com/CatinhoCR/frontend-webpack-boilerplate)
 
 A simple (and in development) front end app made to consume a REST API and work as a single page app made with no frameworks or libraries for personal practice and career development in Vanilla JavaScript (No FE frameworks), eventually to be done with the best practices and latest standards. Focusing on making it work first.
 
